@@ -81,22 +81,26 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.author.id != client.user.id:
-        if message.guild is None:
-            modnotice = client.get_channel(813872172799754250)
-            forward = f"User `{message.author.name}` said: ```{message.content}```"
-            await modnotice.send(forward)
-            if message.author not in session:
 #Session Restart
-                if "$session" in message.content.lower():
-                    await message.author.send("Restarting Session")
-                    session.clear()
-                    print("Session Restarted")
-                else:
+        if "$session" in message.content.lower():
+            await message.author.send("Restarting Session")
+            session.clear()
+            print("Session Restarted")
+        else:
+            if message.guild is None:
+                channel = client.get_channel(813872172799754250)
+                forward = f"User `{message.author.name}` said: ```{message.content}```"
+                await channel.send(forward)
+                if message.author not in session:
 #Main Menu
                     await message.author.send(r1)
                     session.append(message.author)
+            
+                    def check(m):
+                        return client.user.id != message.author.id
+                    
                     try:
-                        message = await client.wait_for("message", timeout=60.0)
+                        message = await client.wait_for("message", timeout=60.0, check=check)
                     
                     except asyncio.TimeoutError:
                             await message.channel.send(to1)
@@ -105,57 +109,55 @@ async def on_message(message):
                     else:
                         if "submit" in message.content.lower() or "submission" in message.content.lower():
                             await message.author.send(r2s)
-                            user = client.get_channel(813872172799754250)
+                            channel = client.get_channel(813872172799754250)
                             submitnotice = f"User `{message.author.name}` is submitting an assignment! <@&806274913904230410>"
-                            await user.send(submitnotice)
+                            await channel.send(submitnotice)
                             
                             def check(m):
-                                return user == message.author
+                                return client.user.id != message.author.id
                             
                             try:
-                                message = await client.wait_for("message", timeout=60.0)
+                                message = await client.wait_for("message", timeout=60.0, check=check)
                                 
                             except asyncio.TimeoutError:
                                     await message.channel.send(to1)
                                     session.remove(message.author)
-                            
 #Submission Line 2 (Class Number)
                             else:
                                 if "1" in message.content.lower() or "2" in message.content.lower() or "3" in message.content.lower() or "4" in message.content.lower() or "5" in message.content.lower() or "6" in message.content.lower() or "7" in message.content.lower() or "8" in message.content.lower() or "9" in message.content.lower():
                                     await message.author.send(r3s)
                                     
                                     def check(m):
-                                        return user == message.author
+                                        return client.user.id != message.author.id
                                     
                                     try:
-                                        message = await client.wait_for("message", timeout=60.0)
+                                        message = await client.wait_for("message", timeout=60.0, check=check)
                                         
                                     except asyncio.TimeoutError:
                                         await message.channel.send("to1")
                                         session.remove(message.author)
-#Submission Line 3 (Assignment Name)
+#Submission Line 3 (Include Tag)
                                     else:
                                         await message.author.send(r4s)
                                         
                                         def check(m):
-                                            return user == message.author
+                                            return client.user.id != message.author.id
                                         
                                         try:
-                                            message = await client.wait_for("message", timeout=60.0)
-                                            
+                                            message = await client.wait_for("message", timeout=60.0, check=check)
                                         except asyncio.TimeoutError:
                                                 await message.channel.send(to1)
                                                 session.remove(message.author)
-#Submission Line 4 (Include Tag)
+#Submission Line 4 (Note)
                                         else:
                                             if "yes" in message.content.lower() or "sure" in message.content.lower() or "yep" in message.content.lower() or "yeah" in message.content.lower():
                                                 await message.author.send(r5s)
                                                 
                                                 def check(m):
-                                                    return user == message.author
+                                                    return client.user.id != message.author.id
                                                 
                                                 try:
-                                                    message = await client.wait_for("message", timeout=60.0)
+                                                    message = await client.wait_for("message", timeout=60.0, check=check)
                                                 except asyncio.TimeoutError:
                                                         await message.channel.send(to1)
                                                         session.remove(message.author)
@@ -173,13 +175,13 @@ async def on_message(message):
                                                 await message.author.send(r5s)
                                                 
                                                 def check(m):
-                                                    return user == message.author
+                                                    return client.user.id != message.author.id
 
                                                 try:
-                                                    message = await client.wait_for("message", timeout=60.0)
+                                                    message = await client.wait_for("message", timeout=60.0, check=check)
                                                 except asyncio.TimeoutError:
-                                                        await message.channel.send(to1)
-                                                        session.remove(message.author)
+                                                    await message.channel.send(to1)
+                                                    session.remove(message.author)
 #Submission Line 5 *No Tag* *No Note* (Attachments)
                                                 else:
                                                     if "no" in message.content.lower():
@@ -231,17 +233,17 @@ async def on_message(message):
                             await message.author.send(e2)
                             session.remove(message.author)
 #Meme Response
-        else:
-            if message.channel == client.get_channel(808452909367820288):
-                if message.attachments:
-                    await message.add_reaction("<:good_meme:808824921484558348>")
-                    await message.add_reaction("<:bad_meme:808826207361695786>")
-                    print('Meme Posted:')
-                    user = client.get_channel(813872172799754250)
-                    forward = f"User `{message.author.name}` Posted a Meme."
-                    await user.send(forward)
-                    print('Origin: ', message.author.name)
-                    print(' -- ')
+            else:
+                if message.channel == client.get_channel(808452909367820288):
+                    if message.attachments:
+                        await message.add_reaction("<:good_meme:808824921484558348>")
+                        await message.add_reaction("<:bad_meme:808826207361695786>")
+                        print('Meme Posted:')
+                        user = client.get_channel(813872172799754250)
+                        forward = f"User `{message.author.name}` Posted a Meme."
+                        await user.send(forward)
+                        print('Origin: ', message.author.name)
+                        print(' -- ')
 
 @client.command()
 async def start(ctx):
@@ -249,4 +251,4 @@ async def start(ctx):
     session.remove(ctx.author)
     await ctx.send("System Reset Complete")
 
-client.run('ODExOTg4ODgxNzEzMDA0NjA0.YC6Nkw.CcJarZHBMINsq7D2F64MvUJx8tA')
+client.run('TOKEN')
