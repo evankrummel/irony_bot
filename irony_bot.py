@@ -8,6 +8,9 @@
 
 import discord
 import asyncio
+import string
+import random
+import secrets
 from discord.ext import commands
 intents = discord.Intents.default()
 intents.members = True
@@ -73,7 +76,7 @@ client = commands.Bot(command_prefix='!', intents=intents)
 @client.event
 async def on_ready():
     print(f"{client.user.name} is online!")
-    user = client.get_channel(813872172799754250)
+    user = client.get_channel(822482846119231536)
     forward = f"`{client.user.name}` is online!"
     await user.send(forward)
     await client.change_presence(status=discord.Status.idle, activity=discord.Activity(type=discord.ActivityType.watching, name="over the server!"))
@@ -238,12 +241,11 @@ async def on_message(message):
                     if message.attachments:
                         await message.add_reaction("<:good_meme:808824921484558348>")
                         await message.add_reaction("<:bad_meme:808826207361695786>")
-                        print('Meme Posted:')
-                        user = client.get_channel(813872172799754250)
-                        forward = f"User `{message.author.name}` Posted a Meme."
+                        numbo = secrets.token_hex(14)
+                        user = client.get_channel(822479640492507176)
+                        forward = f"User `{message.author.name}` Just Posted a Meme!  ID: `0x{numbo}`"
                         await user.send(forward)
-                        print('Origin: ', message.author.name)
-                        print(' -- ')
+                        
 
 @client.command()
 async def start(ctx):
