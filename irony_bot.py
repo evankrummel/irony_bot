@@ -1,10 +1,5 @@
-#AttributeError: 'ClientUser' object has no attribute 'send'
-#attempting to send to itself dispite if clause?
-
-#attachments?
-
-#format final
-
+#This bot was commissioned by RandomStudent and created by Evan Krummel with help from Hidd.  No money changed hands in the creation of the bot.
+#If you want to support the development of the bot, you can donate to the mod team via ETH Wallet 0x60b06AF47AB3E100403732f2f804944234Fa4870
 
 import discord
 import asyncio
@@ -25,7 +20,7 @@ r1l5 = ":wrench: Help; If you need anything else, that can be resolved here!"
 r1l6 = "You can respond with a similar word, or the according emote.  If you get lost in the directory at any point, you can type !help to request help from a moderator.  You can also type !start at any point to go back to this first directory."
 r1 = f"{r1l1} \n {r1l2} \n {r1l3} \n {r1l4} \n {r1l5} \n {r1l6}"
 
-#submit
+#Submit
 r2s = ":partying_face: Awesome, thanks for contributing to the community!  What class is this for?  Please respond using the class number (1-15)."
 r3s = ":pencil2: Great!  What is this assignment called?"
 r4s = ":mega: Ok, got it.  Would you like your handle attached to the submission?  This will let everyone know who submitted the assignment."
@@ -242,15 +237,52 @@ async def on_message(message):
                         await message.add_reaction("<:good_meme:808824921484558348>")
                         await message.add_reaction("<:bad_meme:808826207361695786>")
                         numbo = secrets.token_hex(14)
-                        user = client.get_channel(822479640492507176)
+                        modchannel = client.get_channel(822479640492507176)
                         forward = f"User `{message.author.name}` Just Posted a Meme!  ID: `0x{numbo}`"
-                        await user.send(forward)
+                        await modchannel.send(forward)
+                elif message.channel == client.get_channel(822602852609687552):
+                    if "assignment title" in message.content.lower() and "class" in message.content.lower() and "submission type" in message.content.lower() and "user" in message.content.lower():
+                        tokena = secrets.token_hex(30)
+                        await message.add_reaction("<:good_meme:808824921484558348>")
+                        await message.channel.send(":white_check_mark: Section 1 Clear", delete_after=3)
+                        await message.channel.send(":white_check_mark: Section 2 Clear", delete_after=3)
+                        await message.channel.send(":white_check_mark: Section 3 Clear", delete_after=3)
+                        await message.channel.send(":white_check_mark: Section 4 Clear", delete_after=3)
+                        await message.channel.send(":ballot_box_with_check: Transaction has been cleared to T1.  Awaiting crowdsourced verification for T2.", delete_after=5)
+                        await message.author.send(f":hash: Your Post ID is `0x{tokena}`")
+                        forwardchannel = client.get_channel(822618074548535378)
+                        forward = f"`{message.author.name}` submitted a post query. \n ID: `0x{tokena}`"
+                        await forwardchannel.send(forward)
                         
+                    else:
+                        if "assignment title" in message.content.lower():
+                            await message.channel.send(":white_check_mark: Section 1 Clear", delete_after=3)
+                            if "class" in message.content.lower():
+                                await message.channel.send(":white_check_mark: Section 2 Clear", delete_after=3)
+                                if "submission type" in message.content.lower():
+                                    await message.channel.send(":white_check_mark: Section 3 Clear", delete_after=3)
+                                    if "user" in message.content.lower():
+                                        await message.channel.send(":white_check_mark: Section 4 Clear", delete_after=3)
+                                    else:
+                                        await message.channel.send(":customs: **Section 4 Check Failed.**  Please edit and try again.", delete_after=5)
+                                        await message.add_reaction("🛃")
+                                else:
+                                    await message.channel.send(":customs: **Section 3 Check Failed.**  Please edit and try again.", delete_after=5)
+                                    await message.add_reaction("🛃")
+                            else:
+                                await message.channel.send(":customs: **Section 2 Check Failed.**  Please edit and try again.", delete_after=5)
+                            await message.add_reaction("🛃")
+                        else:
+                            await message.channel.send(":customs: **Section 1 Check Failed.**  Please edit and try again.", delete_after=5)
+                            await message.add_reaction("🛃")
+                elif message.channel == client.get_channel(822624786030395412):
+                    if "+1" in message.content.lower() and ";" in message.content.lower():
+                        await message.channel.send(":white_check_mark: User Verified", delete_after=3)
+                        await message.channel.send(":white_check_mark: Class Verified", delete_after=3)
+                        await message.channel.send(":ballot_box_with_check: Submission cleared. Awaiting count.", delete_after=5)
+                        await message.add_reaction("<:good_meme:808824921484558348>")
+                    else:
+                        await message.channel.send(":customs: There seems to be an error.  Please check your formatting and try again.", delete_after=5)
+                        await message.add_reaction("🛃")
 
-@client.command()
-async def start(ctx):
-    print("test")
-    session.remove(ctx.author)
-    await ctx.send("System Reset Complete")
-
-client.run('TOKEN')
+client.run('ODExOTg4ODgxNzEzMDA0NjA0.YC6Nkw.8U0ApCd8jov3NZY7ILtnL7L7Gzk')
