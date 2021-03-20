@@ -17,7 +17,7 @@ r1l2 = ":mailbox: Submission; If you have an assignment to submit, you can do th
 r1l3 = ":books: Join/Leave Class; If you want to join/leave a class, you can do that here!"
 r1l4 = ":white_check_mark: Correction; If you noticed a mistake in a submission, you can correct them here!"
 r1l5 = ":wrench: Help; If you need anything else, that can be resolved here!"
-r1l6 = "You can respond with a similar word, or the according emote.  If you get lost in the directory at any point, you can type !help to request help from a moderator.  You can also type !start at any point to go back to this first directory."
+r1l6 = "You can respond with a similar word, or the according emote.  If you get lost in the directory, you can always type $start to restart your session."
 r1 = f"{r1l1} \n {r1l2} \n {r1l3} \n {r1l4} \n {r1l5} \n {r1l6}"
 
 #Submit
@@ -25,7 +25,8 @@ r2s = ":partying_face: Awesome, thanks for contributing to the community!  What 
 r3s = ":pencil2: Great!  What is this assignment called?"
 r4s = ":mega: Ok, got it.  Would you like your handle attached to the submission?  This will let everyone know who submitted the assignment."
 r5s = ":notepad_spiral: Do you want to attach any sort of note to the assignment? This can be something describing your thought process, explaining a question, or even letting people know that you're not so sure about a given question. (If yes, simply reply with your note.  Otherwise, say `no`)"
-r6s = ":camera_with_flash: Nice.  You can now send photos/files of the assignment.  When you're done sending them, say `done`."
+r6s = ":camera_with_flash: Nice.  You can now send photos of the assignment.  When you're done sending them, say `done` (Max. 5 Attachments)."
+r7s = ":tada: I'll have a moderator post this on #assignments as soon as possible.  Thanks again for your submission!"
 
 #Join/Leave Class
 r2jl = ":book: If you need to join or leave classes, I can help you with that!  Which one would you like to do?"
@@ -66,6 +67,7 @@ r2hd1 = f"{r2hd1l1} \n {r2hd1l2} \n \n {r2hd1l3} \n {r2hd1l4} \n {r2hd1l5} \n {r
 to1 = ":sob: This conversation has timed out due to inactivity.  Saying anything will start you back at the main menu."
 e1 = ":face_with_raised_eyebrow: Sorry, I'm not sure I understand what you mean.  Could you try again in different words?"
 e2 = ":woman_detective: If you're having trouble with the bot, feel free to reach out to a moderator personally with your issue."
+ol3 = ":smiling_face_with_tear: Sorry, the bot can only accept up to 5 images at this time.  Please try again."
 
 client = commands.Bot(command_prefix='!', intents=intents)
 @client.event
@@ -79,157 +81,622 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.author.id != client.user.id:
+        allforwardchannel = client.get_channel(822973502965284874)
+        allforward = f"`{message.author.name}` said: ```{message.content}```"
+        await allforwardchannel.send(allforward)
 #Session Restart
-        if "$session" in message.content.lower():
+        if "$start" in message.content.lower():
             await message.author.send("Restarting Session")
             session.clear()
             print("Session Restarted")
         else:
             if message.guild is None:
-                channel = client.get_channel(813872172799754250)
-                forward = f"User `{message.author.name}` said: ```{message.content}```"
-                await channel.send(forward)
                 if message.author not in session:
 #Main Menu
                     await message.author.send(r1)
                     session.append(message.author)
             
                     def check(m):
-                        return client.user.id != message.author.id
+                        return client.user.id != m.author.id
                     
                     try:
-                        message = await client.wait_for("message", timeout=60.0, check=check)
+                        reply1 = await client.wait_for("message", timeout=60.0, check=check)
                     
                     except asyncio.TimeoutError:
                             await message.channel.send(to1)
                             session.remove(message.author)
 #Submission Line 1
                     else:
-                        if "submit" in message.content.lower() or "submission" in message.content.lower():
-                            await message.author.send(r2s)
-                            channel = client.get_channel(813872172799754250)
-                            submitnotice = f"User `{message.author.name}` is submitting an assignment! <@&806274913904230410>"
-                            await channel.send(submitnotice)
+                        if "submit" in reply1.content.lower() or "submission" in reply1.content.lower():
+                            await reply1.author.send(r2s)
                             
                             def check(m):
-                                return client.user.id != message.author.id
+                                return client.user.id != m.author.id
                             
                             try:
-                                message = await client.wait_for("message", timeout=60.0, check=check)
+                                reply2 = await client.wait_for("message", timeout=60.0, check=check)
                                 
                             except asyncio.TimeoutError:
-                                    await message.channel.send(to1)
-                                    session.remove(message.author)
+                                    await reply1.channel.send(to1)
+                                    session.remove(reply1.author)
 #Submission Line 2 (Class Number)
                             else:
-                                if "1" in message.content.lower() or "2" in message.content.lower() or "3" in message.content.lower() or "4" in message.content.lower() or "5" in message.content.lower() or "6" in message.content.lower() or "7" in message.content.lower() or "8" in message.content.lower() or "9" in message.content.lower():
-                                    await message.author.send(r3s)
+                                if "1" in reply2.content.lower() or "2" in reply2.content.lower() or "3" in reply2.content.lower() or "4" in reply2.content.lower() or "5" in reply2.content.lower() or "6" in reply2.content.lower() or "7" in reply2.content.lower() or "8" in reply2.content.lower() or "9" in reply2.content.lower():
+                                    await reply2.author.send(r3s)
                                     
                                     def check(m):
-                                        return client.user.id != message.author.id
+                                        return client.user.id != m.author.id
                                     
                                     try:
-                                        message = await client.wait_for("message", timeout=60.0, check=check)
+                                        reply3 = await client.wait_for("message", timeout=60.0, check=check)
                                         
                                     except asyncio.TimeoutError:
-                                        await message.channel.send("to1")
-                                        session.remove(message.author)
+                                        await reply2.channel.send(to1)
+                                        session.remove(reply2.author)
 #Submission Line 3 (Include Tag)
                                     else:
-                                        await message.author.send(r4s)
+                                        await reply3.author.send(r4s)
                                         
                                         def check(m):
-                                            return client.user.id != message.author.id
+                                            return client.user.id != m.author.id
                                         
                                         try:
-                                            message = await client.wait_for("message", timeout=60.0, check=check)
+                                            reply4 = await client.wait_for("message", timeout=60.0, check=check)
+
                                         except asyncio.TimeoutError:
-                                                await message.channel.send(to1)
-                                                session.remove(message.author)
+                                            await reply3.channel.send(to1)
+                                            session.remove(reply3.author)
 #Submission Line 4 (Note)
                                         else:
-                                            if "yes" in message.content.lower() or "sure" in message.content.lower() or "yep" in message.content.lower() or "yeah" in message.content.lower():
-                                                await message.author.send(r5s)
+                                            if "yes" in reply4.content.lower() or "sure" in reply4.content.lower() or "yep" in reply4.content.lower() or "yea" in reply4.content.lower():
+                                                await reply4.author.send(r5s)
                                                 
                                                 def check(m):
-                                                    return client.user.id != message.author.id
+                                                    return client.user.id != m.author.id
                                                 
                                                 try:
-                                                    message = await client.wait_for("message", timeout=60.0, check=check)
+                                                    reply5 = await client.wait_for("message", timeout=60.0, check=check)
+                                                    
                                                 except asyncio.TimeoutError:
-                                                        await message.channel.send(to1)
-                                                        session.remove(message.author)
-#Submission Line 5 *Tag Included* *No Note* (Attachments)
+                                                    await reply4.channel.send(to1)
+                                                    session.remove(reply4.author)
+#Submission Line 5 *Yes Tag* *No Note* (Attachments)
                                                 else:
-                                                    if "no" in message.content.lower():
-                                                        await message.author.send("Yes Tag, No Note")
-                                                        session.remove(message.author)
-#Submission Line 5 *Tag Included* *Yes Note* (Attachments)
+                                                    if "no" in reply5.content.lower():
+                                                        await reply5.author.send(r6s)
+
+                                                        def check(m):
+                                                            return client.user.id != m.author.id
+                                                        
+                                                        try:
+                                                            reply6 = await client.wait_for("message", timeout=60.0, check=check)
+                                                            
+                                                        except asyncio.TimeoutError:
+                                                            await reply5.channel.send(to1)
+                                                            session.remove(reply5.author)
+        #Attachment 1
+                                                        else:
+                                                            for attachment in reply6.attachments:
+                                                                attachment6 = attachment.url
+                                                            def check(m):
+                                                                return client.user.id != m.author.id
+                                                            
+                                                            try:
+                                                                reply7 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                
+                                                            except asyncio.TimeoutError:
+                                                                await reply6.channel.send(to1)
+                                                                session.remove(reply6.author)
+        #Attachment 2
+                                                            else:
+                                                                if "done" in reply7.content.lower():
+                                                                    await reply7.channel.send(r7s)
+                                                                    botforwards = client.get_channel(813872172799754250)
+                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{attachment6}"
+                                                                    await botforwards.send(submissionforward)
+                                                                    session.remove(reply7.author)
+                                                                    
+                                                                else:
+                                                                    for attachment in reply7.attachments:
+                                                                        attachment7 = attachment.url
+                                                                    def check(m):
+                                                                        return client.user.id != m.author.id
+                                                                    
+                                                                    try:
+                                                                        reply8 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                        
+                                                                    except asyncio.TimeoutError:
+                                                                        await reply7.channel.send(to1)
+                                                                        session.remove(reply7.author)
+        #Attachment 3
+                                                                    else:
+                                                                        if "done" in reply8.content.lower():
+                                                                            await reply8.channel.send(r7s)
+                                                                            botforwards = client.get_channel(813872172799754250)
+                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION from {reply8.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{attachment6} \n{attachment7}"
+                                                                            await botforwards.send(submissionforward)
+                                                                            session.remove(reply8.author)
+                                                                            
+                                                                        else:
+                                                                            for attachment in reply8.attachments:
+                                                                                attachment8 = attachment.url
+                                                                            def check(m):
+                                                                                return client.user.id != m.author.id
+                                                                            
+                                                                            try:
+                                                                                reply9 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                
+                                                                            except asyncio.TimeoutError:
+                                                                                await reply8.channel.send(to1)
+                                                                                session.remove(reply8.author)
+        #Attachment 4
+                                                                            else:
+                                                                                if "done" in reply9.content.lower():
+                                                                                    await reply9.channel.send(r7s)
+                                                                                    botforwards = client.get_channel(813872172799754250)
+                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION from {reply9.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{attachment6} \n{attachment7} \n{attachment8}"
+                                                                                    await botforwards.send(submissionforward)
+                                                                                    session.remove(reply9.author)
+                                                                                    
+                                                                                else:
+                                                                                    for attachment in reply9.attachments:
+                                                                                        attachment9 = attachment.url
+                                                                                    def check(m):
+                                                                                        return client.user.id != m.author.id
+                                                                                    
+                                                                                    try:
+                                                                                        reply10 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                        
+                                                                                    except asyncio.TimeoutError:
+                                                                                        await reply9.channel.send(to1)
+                                                                                        session.remove(reply9.author)
+        #Attachment 5
+                                                                                    else:
+                                                                                        if "done" in reply10.content.lower():
+                                                                                            await reply10.channel.send(r7s)
+                                                                                            botforwards = client.get_channel(813872172799754250)
+                                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION from {reply10.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{attachment6} \n{attachment7} \n{attachment8} \n{attachment9}"
+                                                                                            await botforwards.send(submissionforward)
+                                                                                            session.remove(reply10.author)
+                                                                                        else:
+                                                                                            for attachment in reply10.attachments:
+                                                                                                attachment10 = attachment.url
+                                                                                            def check(m):
+                                                                                                return client.user.id != m.author.id
+                                                                                            
+                                                                                            try:
+                                                                                                reply11 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                                
+                                                                                            except asyncio.TimeoutError:
+                                                                                                await reply10.channel.send(to1)
+                                                                                                session.remove(reply10.author)
+        #Attachment Overload
+                                                                                            else:
+                                                                                                if "done" in reply11.content.lower():
+                                                                                                    await reply10.channel.send(r7s)
+                                                                                                    botforwards = client.get_channel(813872172799754250)
+                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION from {reply10.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{attachment6} \n{attachment7} \n{attachment8} \n{attachment9} \n{attachment10}"
+                                                                                                    await botforwards.send(submissionforward)
+                                                                                                    session.remove(reply11.author)
+                                                                                                else:
+                                                                                                    await reply11.channel.send(ol3)
+                                                                                                    session.remove(reply11.author)
+
+#Submission Line 5 *Yes Tag* *Yes Note* (Attachments)
                                                     else:
-                                                        await message.author.send("Yes Tag, Yes Note")
-                                                        session.remove(message.author)
+                                                        await reply5.author.send(r6s)
+
+                                                        def check(m):
+                                                            return client.user.id != m.author.id
+                                                        
+                                                        try:
+                                                            reply6 = await client.wait_for("message", timeout=60.0, check=check)
+                                                            
+                                                        except asyncio.TimeoutError:
+                                                            await reply5.channel.send(to1)
+                                                            session.remove(reply5.author)
+        #Attachment 1
+                                                        else:
+                                                            for attachment in reply6.attachments:
+                                                                attachment6 = attachment.url
+                                                            def check(m):
+                                                                return client.user.id != m.author.id
+                                                            
+                                                            try:
+                                                                reply7 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                
+                                                            except asyncio.TimeoutError:
+                                                                await reply6.channel.send(to1)
+                                                                session.remove(reply6.author)
+        #Attachment 2
+                                                            else:
+                                                                if "done" in reply7.content.lower():
+                                                                    await reply7.channel.send(r7s)
+                                                                    botforwards = client.get_channel(813872172799754250)
+                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n\*\*:woman_student: User:\*\* @{reply7.author} \n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\`\n \n{attachment6}"
+                                                                    await botforwards.send(submissionforward)
+                                                                    session.remove(reply7.author)
+                                                                    
+                                                                else:
+                                                                    for attachment in reply7.attachments:
+                                                                        attachment7 = attachment.url
+                                                                    def check(m):
+                                                                        return client.user.id != m.author.id
+                                                                    
+                                                                    try:
+                                                                        reply8 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                        
+                                                                    except asyncio.TimeoutError:
+                                                                        await reply7.channel.send(to1)
+                                                                        session.remove(reply7.author)
+        #Attachment 3
+                                                                    else:
+                                                                        if "done" in reply8.content.lower():
+                                                                            await reply8.channel.send(r7s)
+                                                                            botforwards = client.get_channel(813872172799754250)
+                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION from {reply8.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n\*\*:woman_student: User:\*\* @{reply7.author} \n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{attachment6} \n{attachment7}"
+                                                                            await botforwards.send(submissionforward)
+                                                                            session.remove(reply8.author)
+                                                                            
+                                                                        else:
+                                                                            for attachment in reply8.attachments:
+                                                                                attachment8 = attachment.url
+                                                                            def check(m):
+                                                                                return client.user.id != m.author.id
+                                                                            
+                                                                            try:
+                                                                                reply9 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                
+                                                                            except asyncio.TimeoutError:
+                                                                                await reply8.channel.send(to1)
+                                                                                session.remove(reply8.author)
+        #Attachment 4
+                                                                            else:
+                                                                                if "done" in reply9.content.lower():
+                                                                                    await reply9.channel.send(r7s)
+                                                                                    botforwards = client.get_channel(813872172799754250)
+                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION from {reply9.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n\*\*:woman_student: User:\*\* @{reply7.author} \n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{attachment6} \n{attachment7} \n{attachment8}"
+                                                                                    await botforwards.send(submissionforward)
+                                                                                    session.remove(reply9.author)
+                                                                                    
+                                                                                else:
+                                                                                    for attachment in reply9.attachments:
+                                                                                        attachment9 = attachment.url
+                                                                                    def check(m):
+                                                                                        return client.user.id != m.author.id
+                                                                                    
+                                                                                    try:
+                                                                                        reply10 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                        
+                                                                                    except asyncio.TimeoutError:
+                                                                                        await reply9.channel.send(to1)
+                                                                                        session.remove(reply9.author)
+        #Attachment 5
+                                                                                    else:
+                                                                                        if "done" in reply10.content.lower():
+                                                                                            await reply10.channel.send(r7s)
+                                                                                            botforwards = client.get_channel(813872172799754250)
+                                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION from {reply10.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n\*\*:woman_student: User:\*\* @{reply7.author} \n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{attachment6} \n{attachment7} \n{attachment8} \n{attachment9}"
+                                                                                            await botforwards.send(submissionforward)
+                                                                                            session.remove(reply10.author)
+                                                                                        else:
+                                                                                            for attachment in reply10.attachments:
+                                                                                                attachment10 = attachment.url
+                                                                                            def check(m):
+                                                                                                return client.user.id != m.author.id
+                                                                                            
+                                                                                            try:
+                                                                                                reply11 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                                
+                                                                                            except asyncio.TimeoutError:
+                                                                                                await reply10.channel.send(to1)
+                                                                                                session.remove(reply10.author)
+        #Attachment Overload
+                                                                                            else:
+                                                                                                if "done" in reply11.content.lower():
+                                                                                                    await reply10.channel.send(r7s)
+                                                                                                    botforwards = client.get_channel(813872172799754250)
+                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION from {reply10.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n\*\*:woman_student: User:\*\* @{reply7.author} \n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{attachment6} \n{attachment7} \n{attachment8} \n{attachment9} \n{attachment10}"
+                                                                                                    await botforwards.send(submissionforward)
+                                                                                                    session.remove(reply11.author)
+                                                                                                else:
+                                                                                                    await reply11.channel.send(ol3)
+                                                                                                    session.remove(reply11.author)
+
+
 #Submission Line 5 *No Tag* (Note)
-                                            elif "no" in message.content.lower() or "nah" in message.content.lower() or "nope" in message.content.lower():
-                                                await message.author.send(r5s)
+                                            elif "no" in reply4.content.lower() or "nah" in reply4.content.lower() or "nope" in reply4.content.lower():
+                                                await reply4.author.send(r5s)
                                                 
                                                 def check(m):
-                                                    return client.user.id != message.author.id
+                                                    return client.user.id != m.author.id
 
                                                 try:
-                                                    message = await client.wait_for("message", timeout=60.0, check=check)
+                                                    reply5 = await client.wait_for("message", timeout=60.0, check=check)
+
                                                 except asyncio.TimeoutError:
-                                                    await message.channel.send(to1)
-                                                    session.remove(message.author)
+                                                    await reply4.channel.send(to1)
+                                                    session.remove(reply4.author)
 #Submission Line 5 *No Tag* *No Note* (Attachments)
                                                 else:
-                                                    if "no" in message.content.lower():
-                                                        print("No Tag, No Note")
-                                                        await message.author.send("No Tag, No Note")
-                                                        session.remove(message.author)
+                                                    if "no" in reply5.content.lower():
+                                                        await reply5.author.send(r6s)
+
+                                                        def check(m):
+                                                            return client.user.id != m.author.id
+                                                        
+                                                        try:
+                                                            reply6 = await client.wait_for("message", timeout=60.0, check=check)
+                                                            
+                                                        except asyncio.TimeoutError:
+                                                            await reply5.channel.send(to1)
+                                                            session.remove(reply5.author)
+        #Attachment 1
+                                                        else:
+                                                            for attachment in reply6.attachments:
+                                                                attachment6 = attachment.url
+                                                            def check(m):
+                                                                return client.user.id != m.author.id
+                                                            
+                                                            try:
+                                                                reply7 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                
+                                                            except asyncio.TimeoutError:
+                                                                await reply6.channel.send(to1)
+                                                                session.remove(reply6.author)
+        #Attachment 2
+                                                            else:
+                                                                if "done" in reply7.content.lower():
+                                                                    await reply7.channel.send(r7s)
+                                                                    botforwards = client.get_channel(813872172799754250)
+                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n \n{attachment6}"
+                                                                    await botforwards.send(submissionforward)
+                                                                    session.remove(reply7.author)
+                                                                    
+                                                                else:
+                                                                    for attachment in reply7.attachments:
+                                                                        attachment7 = attachment.url
+                                                                    def check(m):
+                                                                        return client.user.id != m.author.id
+                                                                    
+                                                                    try:
+                                                                        reply8 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                        
+                                                                    except asyncio.TimeoutError:
+                                                                        await reply7.channel.send(to1)
+                                                                        session.remove(reply7.author)
+        #Attachment 3
+                                                                    else:
+                                                                        if "done" in reply8.content.lower():
+                                                                            await reply8.channel.send(r7s)
+                                                                            botforwards = client.get_channel(813872172799754250)
+                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n \n{attachment6} \n{attachment7}"
+                                                                            await botforwards.send(submissionforward)
+                                                                            session.remove(reply8.author)
+                                                                            
+                                                                        else:
+                                                                            for attachment in reply8.attachments:
+                                                                                attachment8 = attachment.url
+                                                                            def check(m):
+                                                                                return client.user.id != m.author.id
+                                                                            
+                                                                            try:
+                                                                                reply9 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                
+                                                                            except asyncio.TimeoutError:
+                                                                                await reply8.channel.send(to1)
+                                                                                session.remove(reply8.author)
+        #Attachment 4
+                                                                            else:
+                                                                                if "done" in reply9.content.lower():
+                                                                                    await reply9.channel.send(r7s)
+                                                                                    botforwards = client.get_channel(813872172799754250)
+                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n \n{attachment6} \n{attachment7} \n{attachment8}"
+                                                                                    await botforwards.send(submissionforward)
+                                                                                    session.remove(reply9.author)
+                                                                                    
+                                                                                else:
+                                                                                    for attachment in reply9.attachments:
+                                                                                        attachment9 = attachment.url
+                                                                                    def check(m):
+                                                                                        return client.user.id != m.author.id
+                                                                                    
+                                                                                    try:
+                                                                                        reply10 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                        
+                                                                                    except asyncio.TimeoutError:
+                                                                                        await reply9.channel.send(to1)
+                                                                                        session.remove(reply9.author)
+        #Attachment 5
+                                                                                    else:
+                                                                                        if "done" in reply10.content.lower():
+                                                                                            await reply10.channel.send(r7s)
+                                                                                            botforwards = client.get_channel(813872172799754250)
+                                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n \n{attachment6} \n{attachment7} \n{attachment8} \n{attachment9}"
+                                                                                            await botforwards.send(submissionforward)
+                                                                                            session.remove(reply10.author)
+                                                                                        else:
+                                                                                            for attachment in reply10.attachments:
+                                                                                                attachment10 = attachment.url
+                                                                                            def check(m):
+                                                                                                return client.user.id != m.author.id
+                                                                                            
+                                                                                            try:
+                                                                                                reply11 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                                
+                                                                                            except asyncio.TimeoutError:
+                                                                                                await reply10.channel.send(to1)
+                                                                                                session.remove(reply10.author)
+        #Attachment Overload
+                                                                                            else:
+                                                                                                if "done" in reply11.content.lower():
+                                                                                                    await reply10.channel.send(r7s)
+                                                                                                    botforwards = client.get_channel(813872172799754250)
+                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\`\n \*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n \n{attachment6} \n{attachment7} \n{attachment8} \n{attachment9} \n{attachment10}"
+                                                                                                    await botforwards.send(submissionforward)
+                                                                                                    session.remove(reply11.author)
+                                                                                                else:
+                                                                                                    await reply11.channel.send(ol3)
+                                                                                                    session.remove(reply11.author)
 #Submission Line 5 *No Tag* *Yes Note* (Attachments)
                                                     else:
-                                                        print("final 2")
-                                                        await message.author.send("No Tag, Yes Note")
-                                                        session.remove(message.author)
+                                                        await reply5.author.send(r6s)
+
+                                                        def check(m):
+                                                            return client.user.id != m.author.id
+                                                        
+                                                        try:
+                                                            reply6 = await client.wait_for("message", timeout=60.0, check=check)
+                                                            
+                                                        except asyncio.TimeoutError:
+                                                            await reply5.channel.send(to1)
+                                                            session.remove(reply5.author)
+        #Attachment 1
+                                                        else:
+                                                            for attachment in reply6.attachments:
+                                                                attachment6 = attachment.url
+                                                            def check(m):
+                                                                return client.user.id != m.author.id
+                                                            
+                                                            try:
+                                                                reply7 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                
+                                                            except asyncio.TimeoutError:
+                                                                await reply6.channel.send(to1)
+                                                                session.remove(reply6.author)
+        #Attachment 2
+                                                            else:
+                                                                if "done" in reply7.content.lower():
+                                                                    await reply7.channel.send(r7s)
+                                                                    botforwards = client.get_channel(813872172799754250)
+                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{attachment6}"
+                                                                    await botforwards.send(submissionforward)
+                                                                    session.remove(reply7.author)
+                                                                    
+                                                                else:
+                                                                    for attachment in reply7.attachments:
+                                                                        attachment7 = attachment.url
+                                                                    def check(m):
+                                                                        return client.user.id != m.author.id
+                                                                    
+                                                                    try:
+                                                                        reply8 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                        
+                                                                    except asyncio.TimeoutError:
+                                                                        await reply7.channel.send(to1)
+                                                                        session.remove(reply7.author)
+        #Attachment 3
+                                                                    else:
+                                                                        if "done" in reply8.content.lower():
+                                                                            await reply8.channel.send(r7s)
+                                                                            botforwards = client.get_channel(813872172799754250)
+                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{attachment6} \n{attachment7}"
+                                                                            await botforwards.send(submissionforward)
+                                                                            session.remove(reply8.author)
+                                                                            
+                                                                        else:
+                                                                            for attachment in reply8.attachments:
+                                                                                attachment8 = attachment.url
+                                                                            def check(m):
+                                                                                return client.user.id != m.author.id
+                                                                            
+                                                                            try:
+                                                                                reply9 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                
+                                                                            except asyncio.TimeoutError:
+                                                                                await reply8.channel.send(to1)
+                                                                                session.remove(reply8.author)
+        #Attachment 4
+                                                                            else:
+                                                                                if "done" in reply9.content.lower():
+                                                                                    await reply9.channel.send(r7s)
+                                                                                    botforwards = client.get_channel(813872172799754250)
+                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{attachment6} \n{attachment7} \n{attachment8}"
+                                                                                    await botforwards.send(submissionforward)
+                                                                                    session.remove(reply9.author)
+                                                                                    
+                                                                                else:
+                                                                                    for attachment in reply9.attachments:
+                                                                                        attachment9 = attachment.url
+                                                                                    def check(m):
+                                                                                        return client.user.id != m.author.id
+                                                                                    
+                                                                                    try:
+                                                                                        reply10 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                        
+                                                                                    except asyncio.TimeoutError:
+                                                                                        await reply9.channel.send(to1)
+                                                                                        session.remove(reply9.author)
+        #Attachment 5
+                                                                                    else:
+                                                                                        if "done" in reply10.content.lower():
+                                                                                            await reply10.channel.send(r7s)
+                                                                                            botforwards = client.get_channel(813872172799754250)
+                                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{attachment6} \n{attachment7} \n{attachment8} \n{attachment9}"
+                                                                                            await botforwards.send(submissionforward)
+                                                                                            session.remove(reply10.author)
+                                                                                        else:
+                                                                                            for attachment in reply10.attachments:
+                                                                                                attachment10 = attachment.url
+                                                                                            def check(m):
+                                                                                                return client.user.id != m.author.id
+                                                                                            
+                                                                                            try:
+                                                                                                reply11 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                                
+                                                                                            except asyncio.TimeoutError:
+                                                                                                await reply10.channel.send(to1)
+                                                                                                session.remove(reply10.author)
+        #Attachment Overload
+                                                                                            else:
+                                                                                                if "done" in reply11.content.lower():
+                                                                                                    await reply10.channel.send(r7s)
+                                                                                                    botforwards = client.get_channel(813872172799754250)
+                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{reply2.content}\` \n\*\*:hash: Assignment ID:\*\* \`SAMPLE\` \n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{attachment6} \n{attachment7} \n{attachment8} \n{attachment9} \n{attachment10}"
+                                                                                                    await botforwards.send(submissionforward)
+                                                                                                    session.remove(reply11.author)
+                                                                                                else:
+                                                                                                    await reply11.channel.send(ol3)
+                                                                                                    session.remove(reply11.author)
 #Errors
                                             else:
-                                                await message.author.send(e1)
-                                                await message.author.send(e2)
-                                                session.remove(message.author)
+                                                await reply4.author.send(e1)
+                                                await reply4.author.send(e2)
+                                                session.remove(reply4.author)
                                 else:
-                                    await message.author.send(e1)
-                                    await message.author.send(e2)
-                                    session.remove(message.author)
+                                    await reply2.author.send(e1)
+                                    await reply2.author.send(e2)
+                                    session.remove(reply2.author)
                         
 #Line
-                        elif "join class" in message.content.lower():
-                            await message.author.send("Test 1 Passed")
-                            session.remove(message.author)
+                        elif "join class" in reply1.content.lower():
+                            await reply1.author.send("This string is incomplete.  Please select another option.")
+                            session.remove(reply1.author)
                             
-                        elif "leave class" in message.content.lower():
-                            await message.author.send("Test 2 Passed")
-                            session.remove(message.author)
+                        elif "leave class" in reply1.content.lower():
+                            await reply1.author.send("This string is incomplete.  Please select another option.")
+                            session.remove(reply1.author)
                             
-                        elif "join/leave" in message.content.lower():
-                            await message.author.send("Test 3 Passed")
-                            session.remove(message.author)
+                        elif "join/leave" in reply1.content.lower():
+                            await reply1.author.send("This string is incomplete.  Please select another option.")
+                            session.remove(reply1.author)
                             
-                        elif "correct" in message.content.lower() or "correction" in message.content.lower():
-                            await message.author.send("Test 4 Passed")
-                            session.remove(message.author)
+                        elif "correct" in reply1.content.lower() or "correction" in reply1.content.lower():
+                            await reply1.author.send("This string is incomplete.  Please select another option.")
+                            session.remove(reply1.author)
                             
-                        elif "help" in message.content.lower():
-                            await message.author.send(r2h)
-                            session.remove(message.author)
+                        elif "help" in reply1.content.lower():
+                            await reply1.author.send("This string is incomplete.  Please select another option.")
+                            session.remove(reply1.author)
                             
-                        elif "$session" in message.content.lower():
-                            await message.author.send("Restarting Session")
+                        elif "$session" in reply1.content.lower():
+                            await reply1.author.send("Restarting Session")
                             session.clear()
                             
                         else:
-                            await message.author.send(e1)
-                            await message.author.send(e2)
-                            session.remove(message.author)
+                            await reply1.author.send(e1)
+                            await reply1.author.send(e2)
+                            session.remove(reply1.author)
 #Meme Response
             else:
                 if message.channel == client.get_channel(808452909367820288):
