@@ -285,4 +285,4 @@ async def on_message(message):
                         await message.channel.send(":customs: There seems to be an error.  Please check your formatting and try again.", delete_after=5)
                         await message.add_reaction("🛃")
 
-client.run('ODExOTg4ODgxNzEzMDA0NjA0.YC6Nkw.8U0ApCd8jov3NZY7ILtnL7L7Gzk')
+client.run('TOKEN')
