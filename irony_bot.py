@@ -69,6 +69,13 @@ e1 = ":face_with_raised_eyebrow: Sorry, I'm not sure I understand what you mean.
 e2 = ":woman_detective: If you're having trouble with the bot, feel free to reach out to a moderator personally with your issue."
 ol3 = ":smiling_face_with_tear: Sorry, the bot can only accept up to 5 images at this time.  Please try again."
 
+#Replacement Directives
+attachment6 = "Null"
+attachment7 = "Null"
+attachment8 = "Null"
+attachment9 = "Null"
+attachment10 = "Null"
+
 client = commands.Bot(command_prefix='!', intents=intents)
 @client.event
 async def on_ready():
@@ -107,7 +114,7 @@ async def on_message(message):
                             session.remove(message.author)
 #Submission Line 1
                     else:
-                        if "submit" in reply1.content.lower() or "submission" in reply1.content.lower():
+                        if "submit" in reply1.content.lower() or "submission" in reply1.content.lower() or "📫" in reply1.content.lower() or "📪" in reply1.content.lower() or "📬" in reply1.content.lower() or "📭" in reply1.content.lower() or "\U0001f4ec" in reply1.content.lower() or "\U0001f4ea" in reply1.content.lower():
                             await reply1.author.send(r2s)
                             
                             def check(m):
@@ -669,29 +676,25 @@ async def on_message(message):
                                     session.remove(reply2.author)
                         
 #Line
-                        elif "join class" in reply1.content.lower():
-                            await reply1.author.send("This string is incomplete.  Please select another option.")
+                        elif "join class" in reply1.content.lower() or "\U0001f4da" in reply1.content.lower():
+                            await reply1.author.send(r2j)
                             session.remove(reply1.author)
                             
                         elif "leave class" in reply1.content.lower():
-                            await reply1.author.send("This string is incomplete.  Please select another option.")
+                            await reply1.author.send(r2l)
                             session.remove(reply1.author)
                             
                         elif "join/leave" in reply1.content.lower():
+                            await reply1.author.send(r2jl)
+                            session.remove(reply1.author)
+                            
+                        elif "correct" in reply1.content.lower() or "correction" in reply1.content.lower() or "\U00002705" in reply1.content.lower():
                             await reply1.author.send("This string is incomplete.  Please select another option.")
                             session.remove(reply1.author)
                             
-                        elif "correct" in reply1.content.lower() or "correction" in reply1.content.lower():
+                        elif "help" in reply1.content.lower() or "\U0001f527" in reply1.content.lower():
                             await reply1.author.send("This string is incomplete.  Please select another option.")
                             session.remove(reply1.author)
-                            
-                        elif "help" in reply1.content.lower():
-                            await reply1.author.send("This string is incomplete.  Please select another option.")
-                            session.remove(reply1.author)
-                            
-                        elif "$session" in reply1.content.lower():
-                            await reply1.author.send("Restarting Session")
-                            session.clear()
                             
                         else:
                             await reply1.author.send(e1)
