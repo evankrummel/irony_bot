@@ -25,7 +25,7 @@ r2s = ":partying_face: Awesome, thanks for contributing to the community!  What 
 r3s = ":pencil2: Great!  What is this assignment called?"
 r4s = ":mega: Ok, got it.  Would you like your handle attached to the submission?  This will let everyone know who submitted the assignment."
 r5s = ":notepad_spiral: Do you want to attach any sort of note to the assignment? This can be something describing your thought process, explaining a question, or even letting people know that you're not so sure about a given question. (If yes, simply reply with your note.  Otherwise, say `no`)"
-r6s = ":camera_with_flash: Nice.  You can now send photos of the assignment.  When you're done sending them, say `done` (Max. 5 Attachments)."
+r6s = ":camera_with_flash: Nice.  You can now send photos of the assignment.  When you're done sending them, say `done` (Max. 5 Attachments, Don't include comments)."
 r7s = ":tada: I'll have a moderator post this on #assignments as soon as possible.  Thanks again for your submission!"
 
 #Join/Leave Class
@@ -162,7 +162,7 @@ async def on_message(message):
                                                     session.remove(reply4.author)
 #Submission Line 5 *Yes Tag* *No Note* (Attachments)
                                                 else:
-                                                    if "no" in reply5.content.lower():
+                                                    if reply5.content.lower() == "no":
                                                         await reply5.author.send(r6s)
 
                                                         def check(m):
@@ -419,7 +419,7 @@ async def on_message(message):
                                                     session.remove(reply4.author)
 #Submission Line 5 *No Tag* *No Note* (Attachments)
                                                 else:
-                                                    if "no" in reply5.content.lower():
+                                                    if reply5.content.lower() == "no":
                                                         await reply5.author.send(r6s)
 
                                                         def check(m):
