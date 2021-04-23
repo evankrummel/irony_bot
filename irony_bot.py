@@ -183,8 +183,13 @@ async def on_message(message):
                                 reply2 = await client.wait_for("message", timeout=60.0, check=check)
                                 
                             except asyncio.TimeoutError:
-                                    await reply1.channel.send(to1)
-                                    session.remove(reply1.author)
+                                await message.channel.send(to1)
+                                embedcolor = random.choice(embedcoloroptions)
+                                timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                allforwardchannel = client.get_channel(822973502965284874)
+                                await allforwardchannel.send(embed=timeoutembed)
+                                session.remove(message.author)
 #Submission Line 2 (Class Number)
                             else:
                                 reply2valid = ["whittle", "vangoor", "castillo", "vecziedins", "thane", "donohue", "vogl", "beckwith", "burke", "rizley", "stachura", "jeroudi", "miller", "art", "spanish", "bio", "english", "chem", "chinese", "ess", "music", "tok", "epic", "psych"]
@@ -247,8 +252,13 @@ async def on_message(message):
                                         reply3 = await client.wait_for("message", timeout=60.0, check=check)
                                         
                                     except asyncio.TimeoutError:
-                                        await reply2.channel.send(to1)
-                                        session.remove(reply2.author)
+                                        await message.channel.send(to1)
+                                        embedcolor = random.choice(embedcoloroptions)
+                                        timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                        timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                        allforwardchannel = client.get_channel(822973502965284874)
+                                        await allforwardchannel.send(embed=timeoutembed)
+                                        session.remove(message.author)
 #Submission Line 3 (Include Tag)
                                     else:
                                         r4srand = random.choice(r4soptions)
@@ -261,8 +271,13 @@ async def on_message(message):
                                             reply4 = await client.wait_for("message", timeout=60.0, check=check)
 
                                         except asyncio.TimeoutError:
-                                            await reply3.channel.send(to1)
-                                            session.remove(reply3.author)
+                                            await message.channel.send(to1)
+                                            embedcolor = random.choice(embedcoloroptions)
+                                            timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                            timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                            allforwardchannel = client.get_channel(822973502965284874)
+                                            await allforwardchannel.send(embed=timeoutembed)
+                                            session.remove(message.author)
 #Submission Line 4 (Note)
                                         else:
                                             r5srand = random.choice(r5soptions)
@@ -275,8 +290,13 @@ async def on_message(message):
                                                 reply5 = await client.wait_for("message", timeout=60.0, check=check)
                                                 
                                             except asyncio.TimeoutError:
-                                                await reply4.channel.send(to1)
-                                                session.remove(reply4.author)
+                                                await message.channel.send(to1)
+                                                embedcolor = random.choice(embedcoloroptions)
+                                                timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                allforwardchannel = client.get_channel(822973502965284874)
+                                                await allforwardchannel.send(embed=timeoutembed)
+                                                session.remove(message.author)
 #Attachments
                                             else:
                                                 await reply5.author.send(r6s)
@@ -288,8 +308,13 @@ async def on_message(message):
                                                     reply6 = await client.wait_for("message", timeout=60.0, check=check)
                                                     
                                                 except asyncio.TimeoutError:
-                                                    await reply5.channel.send(to1)
-                                                    session.remove(reply5.author)
+                                                    await message.channel.send(to1)
+                                                    embedcolor = random.choice(embedcoloroptions)
+                                                    timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                    timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                    allforwardchannel = client.get_channel(822973502965284874)
+                                                    await allforwardchannel.send(embed=timeoutembed)
+                                                    session.remove(message.author)
 #Attachment 1
                                                 else:
                                                     for attachment in reply6.attachments:
@@ -301,8 +326,13 @@ async def on_message(message):
                                                         reply7 = await client.wait_for("message", timeout=60.0, check=check)
                                                         
                                                     except asyncio.TimeoutError:
-                                                        await reply6.channel.send(to1)
-                                                        session.remove(reply6.author)
+                                                        await message.channel.send(to1)
+                                                        embedcolor = random.choice(embedcoloroptions)
+                                                        timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                        timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                        allforwardchannel = client.get_channel(822973502965284874)
+                                                        await allforwardchannel.send(embed=timeoutembed)
+                                                        session.remove(message.author)
                                                     else:
                                             #Query End w. 1 Attachment
                                                         if "done" in reply7.content.lower():
@@ -329,8 +359,13 @@ async def on_message(message):
                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                         
                                                                     except asyncio.TimeoutError:
-                                                                        await reply6.channel.send(to1)
-                                                                        session.remove(reply6.author)
+                                                                        await message.channel.send(to1)
+                                                                        embedcolor = random.choice(embedcoloroptions)
+                                                                        timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                        timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                        allforwardchannel = client.get_channel(822973502965284874)
+                                                                        await allforwardchannel.send(embed=timeoutembed)
+                                                                        session.remove(message.author)
                                                                     else:
                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                             submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{finalattachments}"
@@ -360,8 +395,13 @@ async def on_message(message):
                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                         
                                                                     except asyncio.TimeoutError:
-                                                                        await reply6.channel.send(to1)
-                                                                        session.remove(reply6.author)
+                                                                        await message.channel.send(to1)
+                                                                        embedcolor = random.choice(embedcoloroptions)
+                                                                        timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                        timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                        allforwardchannel = client.get_channel(822973502965284874)
+                                                                        await allforwardchannel.send(embed=timeoutembed)
+                                                                        session.remove(message.author)
                                                                     else:
                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                             submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
@@ -393,8 +433,13 @@ async def on_message(message):
                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                         
                                                                     except asyncio.TimeoutError:
-                                                                        await reply6.channel.send(to1)
-                                                                        session.remove(reply6.author)
+                                                                        await message.channel.send(to1)
+                                                                        embedcolor = random.choice(embedcoloroptions)
+                                                                        timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                        timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                        allforwardchannel = client.get_channel(822973502965284874)
+                                                                        await allforwardchannel.send(embed=timeoutembed)
+                                                                        session.remove(message.author)
                                                                     else:
                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                             submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n{finalattachments}"
@@ -424,8 +469,13 @@ async def on_message(message):
                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                         
                                                                     except asyncio.TimeoutError:
-                                                                        await reply6.channel.send(to1)
-                                                                        session.remove(reply6.author)
+                                                                        await message.channel.send(to1)
+                                                                        embedcolor = random.choice(embedcoloroptions)
+                                                                        timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                        timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                        allforwardchannel = client.get_channel(822973502965284874)
+                                                                        await allforwardchannel.send(embed=timeoutembed)
+                                                                        session.remove(message.author)
                                                                     else:
                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                             submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
@@ -446,8 +496,13 @@ async def on_message(message):
                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                 
                                                             except asyncio.TimeoutError:
-                                                                await reply7.channel.send(to1)
-                                                                session.remove(reply7.author)
+                                                                await message.channel.send(to1)
+                                                                embedcolor = random.choice(embedcoloroptions)
+                                                                timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                allforwardchannel = client.get_channel(822973502965284874)
+                                                                await allforwardchannel.send(embed=timeoutembed)
+                                                                session.remove(message.author)
                                                             else:
                                                     #Query End w. 2 Attachments
                                                                 if "done" in reply8.content.lower():
@@ -474,8 +529,13 @@ async def on_message(message):
                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                 
                                                                             except asyncio.TimeoutError:
-                                                                                await reply6.channel.send(to1)
-                                                                                session.remove(reply6.author)
+                                                                                await message.channel.send(to1)
+                                                                                embedcolor = random.choice(embedcoloroptions)
+                                                                                timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                allforwardchannel = client.get_channel(822973502965284874)
+                                                                                await allforwardchannel.send(embed=timeoutembed)
+                                                                                session.remove(message.author)
                                                                             else:
                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                     submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{finalattachments}"
@@ -505,8 +565,13 @@ async def on_message(message):
                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                 
                                                                             except asyncio.TimeoutError:
-                                                                                await reply6.channel.send(to1)
-                                                                                session.remove(reply6.author)
+                                                                                await message.channel.send(to1)
+                                                                                embedcolor = random.choice(embedcoloroptions)
+                                                                                timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                allforwardchannel = client.get_channel(822973502965284874)
+                                                                                await allforwardchannel.send(embed=timeoutembed)
+                                                                                session.remove(message.author)
                                                                             else:
                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                     submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
@@ -538,8 +603,13 @@ async def on_message(message):
                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                 
                                                                             except asyncio.TimeoutError:
-                                                                                await reply6.channel.send(to1)
-                                                                                session.remove(reply6.author)
+                                                                                await message.channel.send(to1)
+                                                                                embedcolor = random.choice(embedcoloroptions)
+                                                                                timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                allforwardchannel = client.get_channel(822973502965284874)
+                                                                                await allforwardchannel.send(embed=timeoutembed)
+                                                                                session.remove(message.author)
                                                                             else:
                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                     submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n{finalattachments}"
@@ -569,8 +639,13 @@ async def on_message(message):
                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                 
                                                                             except asyncio.TimeoutError:
-                                                                                await reply6.channel.send(to1)
-                                                                                session.remove(reply6.author)
+                                                                                await message.channel.send(to1)
+                                                                                embedcolor = random.choice(embedcoloroptions)
+                                                                                timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                allforwardchannel = client.get_channel(822973502965284874)
+                                                                                await allforwardchannel.send(embed=timeoutembed)
+                                                                                session.remove(message.author)
                                                                             else:
                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                     submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
@@ -591,8 +666,13 @@ async def on_message(message):
                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                         
                                                                     except asyncio.TimeoutError:
-                                                                        await reply7.channel.send(to1)
-                                                                        session.remove(reply7.author)
+                                                                        await message.channel.send(to1)
+                                                                        embedcolor = random.choice(embedcoloroptions)
+                                                                        timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                        timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                        allforwardchannel = client.get_channel(822973502965284874)
+                                                                        await allforwardchannel.send(embed=timeoutembed)
+                                                                        session.remove(message.author)
                                                                     else:
                                                                         if "done" in reply8.content.lower():
                                                                             finalattachments = "\n".join(submitattach)
@@ -618,8 +698,13 @@ async def on_message(message):
                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                         
                                                                                     except asyncio.TimeoutError:
-                                                                                        await reply6.channel.send(to1)
-                                                                                        session.remove(reply6.author)
+                                                                                        await message.channel.send(to1)
+                                                                                        embedcolor = random.choice(embedcoloroptions)
+                                                                                        timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                        timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                        allforwardchannel = client.get_channel(822973502965284874)
+                                                                                        await allforwardchannel.send(embed=timeoutembed)
+                                                                                        session.remove(message.author)
                                                                                     else:
                                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                             submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{finalattachments}"
@@ -649,8 +734,13 @@ async def on_message(message):
                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                         
                                                                                     except asyncio.TimeoutError:
-                                                                                        await reply6.channel.send(to1)
-                                                                                        session.remove(reply6.author)
+                                                                                        await message.channel.send(to1)
+                                                                                        embedcolor = random.choice(embedcoloroptions)
+                                                                                        timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                        timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                        allforwardchannel = client.get_channel(822973502965284874)
+                                                                                        await allforwardchannel.send(embed=timeoutembed)
+                                                                                        session.remove(message.author)
                                                                                     else:
                                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                             submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
@@ -682,8 +772,13 @@ async def on_message(message):
                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                         
                                                                                     except asyncio.TimeoutError:
-                                                                                        await reply6.channel.send(to1)
-                                                                                        session.remove(reply6.author)
+                                                                                        await message.channel.send(to1)
+                                                                                        embedcolor = random.choice(embedcoloroptions)
+                                                                                        timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                        timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                        allforwardchannel = client.get_channel(822973502965284874)
+                                                                                        await allforwardchannel.send(embed=timeoutembed)
+                                                                                        session.remove(message.author)
                                                                                     else:
                                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                             submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n{finalattachments}"
@@ -713,8 +808,13 @@ async def on_message(message):
                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                         
                                                                                     except asyncio.TimeoutError:
-                                                                                        await reply6.channel.send(to1)
-                                                                                        session.remove(reply6.author)
+                                                                                        await message.channel.send(to1)
+                                                                                        embedcolor = random.choice(embedcoloroptions)
+                                                                                        timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                        timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                        allforwardchannel = client.get_channel(822973502965284874)
+                                                                                        await allforwardchannel.send(embed=timeoutembed)
+                                                                                        session.remove(message.author)
                                                                                     else:
                                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                             submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
@@ -735,8 +835,13 @@ async def on_message(message):
                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                 
                                                                             except asyncio.TimeoutError:
-                                                                                await reply7.channel.send(to1)
-                                                                                session.remove(reply7.author)
+                                                                                await message.channel.send(to1)
+                                                                                embedcolor = random.choice(embedcoloroptions)
+                                                                                timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                allforwardchannel = client.get_channel(822973502965284874)
+                                                                                await allforwardchannel.send(embed=timeoutembed)
+                                                                                session.remove(message.author)
                                                                             else:
                                                                                 if "done" in reply8.content.lower():
                                                                                     finalattachments = "\n".join(submitattach)
@@ -762,8 +867,13 @@ async def on_message(message):
                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                                 
                                                                                             except asyncio.TimeoutError:
-                                                                                                await reply6.channel.send(to1)
-                                                                                                session.remove(reply6.author)
+                                                                                                await message.channel.send(to1)
+                                                                                                embedcolor = random.choice(embedcoloroptions)
+                                                                                                timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                                timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                                allforwardchannel = client.get_channel(822973502965284874)
+                                                                                                await allforwardchannel.send(embed=timeoutembed)
+                                                                                                session.remove(message.author)
                                                                                             else:
                                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                                     submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{finalattachments}"
@@ -793,8 +903,13 @@ async def on_message(message):
                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
 
                                                                                             except asyncio.TimeoutError:
-                                                                                                await reply6.channel.send(to1)
-                                                                                                session.remove(reply6.author)
+                                                                                                await message.channel.send(to1)
+                                                                                                embedcolor = random.choice(embedcoloroptions)
+                                                                                                timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                                timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                                allforwardchannel = client.get_channel(822973502965284874)
+                                                                                                await allforwardchannel.send(embed=timeoutembed)
+                                                                                                session.remove(message.author)
                                                                                             else:
                                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                                     submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
@@ -826,8 +941,13 @@ async def on_message(message):
                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                                 
                                                                                             except asyncio.TimeoutError:
-                                                                                                await reply6.channel.send(to1)
-                                                                                                session.remove(reply6.author)
+                                                                                                await message.channel.send(to1)
+                                                                                                embedcolor = random.choice(embedcoloroptions)
+                                                                                                timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                                timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                                allforwardchannel = client.get_channel(822973502965284874)
+                                                                                                await allforwardchannel.send(embed=timeoutembed)
+                                                                                                session.remove(message.author)
                                                                                             else:
                                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                                     submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n{finalattachments}"
@@ -857,8 +977,13 @@ async def on_message(message):
                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
 
                                                                                             except asyncio.TimeoutError:
-                                                                                                await reply6.channel.send(to1)
-                                                                                                session.remove(reply6.author)
+                                                                                                await message.channel.send(to1)
+                                                                                                embedcolor = random.choice(embedcoloroptions)
+                                                                                                timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                                timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                                allforwardchannel = client.get_channel(822973502965284874)
+                                                                                                await allforwardchannel.send(embed=timeoutembed)
+                                                                                                session.remove(message.author)
                                                                                             else:
                                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                                     submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
@@ -879,8 +1004,13 @@ async def on_message(message):
                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                         
                                                                                     except asyncio.TimeoutError:
-                                                                                        await reply7.channel.send(to1)
-                                                                                        session.remove(reply7.author)
+                                                                                        await message.channel.send(to1)
+                                                                                        embedcolor = random.choice(embedcoloroptions)
+                                                                                        timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                        timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                        allforwardchannel = client.get_channel(822973502965284874)
+                                                                                        await allforwardchannel.send(embed=timeoutembed)
+                                                                                        session.remove(message.author)
                                                                                     else:
                                                                                         if "done" in reply8.content.lower():
                                                                                             finalattachments = "\n".join(submitattach)
@@ -906,8 +1036,13 @@ async def on_message(message):
                                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                                         
                                                                                                     except asyncio.TimeoutError:
-                                                                                                        await reply6.channel.send(to1)
-                                                                                                        session.remove(reply6.author)
+                                                                                                        await message.channel.send(to1)
+                                                                                                        embedcolor = random.choice(embedcoloroptions)
+                                                                                                        timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                                        timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                                        allforwardchannel = client.get_channel(822973502965284874)
+                                                                                                        await allforwardchannel.send(embed=timeoutembed)
+                                                                                                        session.remove(message.author)
                                                                                                     else:
                                                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                                             submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{finalattachments}"
@@ -937,8 +1072,13 @@ async def on_message(message):
                                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
 
                                                                                                     except asyncio.TimeoutError:
-                                                                                                        await reply6.channel.send(to1)
-                                                                                                        session.remove(reply6.author)
+                                                                                                        await message.channel.send(to1)
+                                                                                                        embedcolor = random.choice(embedcoloroptions)
+                                                                                                        timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                                        timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                                        allforwardchannel = client.get_channel(822973502965284874)
+                                                                                                        await allforwardchannel.send(embed=timeoutembed)
+                                                                                                        session.remove(message.author)
                                                                                                     else:
                                                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                                             submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
@@ -970,8 +1110,13 @@ async def on_message(message):
                                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                                         
                                                                                                     except asyncio.TimeoutError:
-                                                                                                        await reply6.channel.send(to1)
-                                                                                                        session.remove(reply6.author)
+                                                                                                        await message.channel.send(to1)
+                                                                                                        embedcolor = random.choice(embedcoloroptions)
+                                                                                                        timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                                        timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                                        allforwardchannel = client.get_channel(822973502965284874)
+                                                                                                        await allforwardchannel.send(embed=timeoutembed)
+                                                                                                        session.remove(message.author)
                                                                                                     else:
                                                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                                             submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n{finalattachments}"
@@ -1001,8 +1146,13 @@ async def on_message(message):
                                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
 
                                                                                                     except asyncio.TimeoutError:
-                                                                                                        await reply6.channel.send(to1)
-                                                                                                        session.remove(reply6.author)
+                                                                                                        await message.channel.send(to1)
+                                                                                                        embedcolor = random.choice(embedcoloroptions)
+                                                                                                        timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                                        timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                                        allforwardchannel = client.get_channel(822973502965284874)
+                                                                                                        await allforwardchannel.send(embed=timeoutembed)
+                                                                                                        session.remove(message.author)
                                                                                                     else:
                                                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                                             submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
@@ -1023,8 +1173,13 @@ async def on_message(message):
                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                                 
                                                                                             except asyncio.TimeoutError:
-                                                                                                await reply7.channel.send(to1)
-                                                                                                session.remove(reply7.author)
+                                                                                                await message.channel.send(to1)
+                                                                                                embedcolor = random.choice(embedcoloroptions)
+                                                                                                timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                                timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                                allforwardchannel = client.get_channel(822973502965284874)
+                                                                                                await allforwardchannel.send(embed=timeoutembed)
+                                                                                                session.remove(message.author)
                                                                                             else:
                                                                                                 if "done" in reply8.content.lower():
                                                                                                     finalattachments = "\n".join(submitattach)
@@ -1050,8 +1205,13 @@ async def on_message(message):
                                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                                                 
                                                                                                             except asyncio.TimeoutError:
-                                                                                                                await reply6.channel.send(to1)
-                                                                                                                session.remove(reply6.author)
+                                                                                                                await message.channel.send(to1)
+                                                                                                                embedcolor = random.choice(embedcoloroptions)
+                                                                                                                timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                                                timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                                                allforwardchannel = client.get_channel(822973502965284874)
+                                                                                                                await allforwardchannel.send(embed=timeoutembed)
+                                                                                                                session.remove(message.author)
                                                                                                             else:
                                                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                                                     submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{finalattachments}"
@@ -1081,8 +1241,13 @@ async def on_message(message):
                                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
 
                                                                                                             except asyncio.TimeoutError:
-                                                                                                                await reply6.channel.send(to1)
-                                                                                                                session.remove(reply6.author)
+                                                                                                                await message.channel.send(to1)
+                                                                                                                embedcolor = random.choice(embedcoloroptions)
+                                                                                                                timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                                                timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                                                allforwardchannel = client.get_channel(822973502965284874)
+                                                                                                                await allforwardchannel.send(embed=timeoutembed)
+                                                                                                                session.remove(message.author)
                                                                                                             else:
                                                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                                                     submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
@@ -1114,8 +1279,13 @@ async def on_message(message):
                                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                                                 
                                                                                                             except asyncio.TimeoutError:
-                                                                                                                await reply6.channel.send(to1)
-                                                                                                                session.remove(reply6.author)
+                                                                                                                await message.channel.send(to1)
+                                                                                                                embedcolor = random.choice(embedcoloroptions)
+                                                                                                                timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                                                timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                                                allforwardchannel = client.get_channel(822973502965284874)
+                                                                                                                await allforwardchannel.send(embed=timeoutembed)
+                                                                                                                session.remove(message.author)
                                                                                                             else:
                                                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                                                     submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n{finalattachments}"
@@ -1145,8 +1315,13 @@ async def on_message(message):
                                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
 
                                                                                                             except asyncio.TimeoutError:
-                                                                                                                await reply6.channel.send(to1)
-                                                                                                                session.remove(reply6.author)
+                                                                                                                await message.channel.send(to1)
+                                                                                                                embedcolor = random.choice(embedcoloroptions)
+                                                                                                                timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                                                timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                                                allforwardchannel = client.get_channel(822973502965284874)
+                                                                                                                await allforwardchannel.send(embed=timeoutembed)
+                                                                                                                session.remove(message.author)
                                                                                                             else:
                                                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
                                                                                                                     submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
@@ -1158,6 +1333,11 @@ async def on_message(message):
                                                                                                                     session.remove(reply7.author)
                                                                                                 else:
                                                                                                     await reply8.channel.send(ol3)
+                                                                                                    embedcolor = random.choice(embedcoloroptions)
+                                                                                                    timeoutembed=discord.Embed(title="Attachment Bin Overloaded", description=f"<@811988881713004604>", color=embedcolor)
+                                                                                                    timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                                                                                                    allforwardchannel = client.get_channel(822973502965284874)
+                                                                                                    await allforwardchannel.send(embed=timeoutembed)
                                                                                                     session.remove(reply8.author)
 #Errors
                             #Class Inval
