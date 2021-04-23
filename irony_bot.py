@@ -66,7 +66,6 @@ r2hd1 = f"{r2hd1l1} \n {r2hd1l2} \n \n {r2hd1l3} \n {r2hd1l4} \n {r2hd1l5} \n {r
 
 #Error
 to1options = [":sob: This conversation has timed out due to inactivity.  Saying anything will start you back at the main menu.", ":cry: Oh no!  This conversation has timed out due to inactivity.  Saying anything will trigger the main menu.", ":fearful: Agh!  Sorry, but the session has timed out.  Saying anything will send you back to the main menu.", ":cold_face: Welp, the conversation has timed out.  Saying anything will send you back to the main menu."]
-to1 = random.choice(to1options)
 e1 = ":face_with_raised_eyebrow: Sorry, I'm not sure I understand what you mean.  Could you try again in different words?"
 e2 = ":woman_detective: If you're having trouble with the bot, feel free to reach out to a moderator personally with your issue."
 ol3 = ":smiling_face_with_tear: Sorry, the bot can only accept up to 5 images at this time.  Please try again."
@@ -83,9 +82,10 @@ club9 = ":ballot_box_with_check: Great, we'll add you to The Math Study Club rig
 club6 = ":ballot_box_with_check: Great, we'll add you to The Joy Luck Club right away!"
 
 #Personalization
-embedcoloroptions = ["0xffb5af", "0xa8c6fe", "0xb18cfe", "0xf4a4c0", "0x94e3fe", "0xb18cfe"]
+embedcoloroptions = [0xffb5af, 0xa8c6fe, 0xb18cfe, 0xf4a4c0, 0x94e3fe, 0xb18cfe]
 
 client = commands.Bot(command_prefix='!', intents=intents)
+
 @client.event
 async def on_ready():
     print(f"{client.user.name} is online!")
@@ -98,8 +98,8 @@ async def on_ready():
 async def on_message(message):
     botforwards = client.get_channel(813872172799754250)
     if message.author.id != client.user.id:
+        to1 = random.choice(to1options)
         allforwardchannel = client.get_channel(822973502965284874)
-        allforward = f"`{message.author.name}` said: ```{message.content}```"
         if message.guild is None:
             allforwardembed=discord.Embed(title=f"New Bot Interaction", description=f"<@811988881713004604>", color=0x74a7fe)
             allforwardembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -108,7 +108,9 @@ async def on_message(message):
             else:
                 allforwardembed.add_field(name="Content:", value=f"No Message Included", inline=False)
             if message.attachments:
-                allforwardembed.set_footer(text="Attachments included.")
+                allforwardembed.set_footer(text=f"Attachments included. ID: {message.id}")
+            else:
+                allforwardembed.set_footer(text=f"ID: {message.id}")
             await allforwardchannel.send(embed=allforwardembed)
         else:
             allforwardembed=discord.Embed(title=f"New Server Message", description=f"{message.channel.mention}", color=0xe392fe)
@@ -118,50 +120,30 @@ async def on_message(message):
             else:
                 allforwardembed.add_field(name="Content:", value=f"No Message Included", inline=False)
             if message.attachments:
-                allforwardembed.set_footer(text="Attachments included.")
+                allforwardembed.set_footer(text=f"Attachments included. ID: {message.id}")
+            else:
+                allforwardembed.set_footer(text=f"ID: {message.id}")
             await allforwardchannel.send(embed=allforwardembed)
 #Session Restart
         if "$start" in message.content.lower():
             await message.author.send("Restarting Session")
             session.clear()
-            print("Session Restarted")
+#Clubs
         elif "$club" in message.content.lower():
-            if "1" in message.content.lower():
+            if message.content.lower() in ["1", "2", "3", "4", "5", "7", "8", "10", "11", "12", "13", "14", "15"]:
                 await message.author.send(nullclub)
-            elif "2" in message.content.lower():
-                await message.author.send(nullclub)
-            elif "3" in message.content.lower():
-                await message.author.send(nullclub)
-            elif "4" in message.content.lower():
-                await message.author.send(nullclub)
-            elif "5" in message.content.lower():
-                await message.author.send(nullclub)
+        #Joy Luck
             elif "6" in message.content.lower():
                 await message.author.send(club6)
                 botforwards = client.get_channel(813872172799754250)
                 forward = f"`{message.author.name}` wants to join `Joy Luck Club - 6` <@&806274913904230410>"
                 await botforwards.send(forward)
-            elif "7" in message.content.lower():
-                await message.author.send(nullclub)
-            elif "8" in message.content.lower():
-                await message.author.send(nullclub)
+        #Math Study
             elif "9" in message.content.lower():
                 await message.author.send(club9)
                 botforwards = client.get_channel(813872172799754250)
                 forward = f"`{message.author.name}` wants to join `Math Study Club - 9` <@&806274913904230410>"
                 await botforwards.send(forward)
-            elif "10" in message.content.lower():
-                await message.author.send(nullclub)
-            elif "11" in message.content.lower():
-                await message.author.send(nullclub)
-            elif "12" in message.content.lower():
-                await message.author.send(nullclub)
-            elif "13" in message.content.lower():
-                await message.author.send(nullclub)
-            elif "14" in message.content.lower():
-                await message.author.send(nullclub)
-            elif "15" in message.content.lower():
-                await message.author.send(nullclub)
             elif "?" in message.content.lower():
                 await message.author.send(clubs)
             else:
@@ -175,17 +157,22 @@ async def on_message(message):
                     submitattach = []
             
                     def check(m):
-                        return client.user.id != m.author.id and reply1.guild is None and m.author == message.author
+                        return client.user.id != m.author.id and m.guild is None and m.author == message.author
                     
                     try:
                         reply1 = await client.wait_for("message", timeout=60.0, check=check)
                     
                     except asyncio.TimeoutError:
-                            await message.channel.send(to1)
-                            session.remove(message.author)
+                        await message.channel.send(to1)
+                        embedcolor = random.choice(embedcoloroptions)
+                        timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
+                        timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
+                        allforwardchannel = client.get_channel(822973502965284874)
+                        await allforwardchannel.send(embed=timeoutembed)
+                        session.remove(message.author)
 #Submission Line 1
                     else:
-                        if "submit" in reply1.content.lower() or "submission" in reply1.content.lower() or "📫" in reply1.content.lower() or "📪" in reply1.content.lower() or "📬" in reply1.content.lower() or "📭" in reply1.content.lower() or "\U0001f4ec" in reply1.content.lower() or "\U0001f4ea" in reply1.content.lower():
+                        if "sub" in reply1.content.lower() or "📫" in reply1.content.lower() or "📪" in reply1.content.lower() or "📬" in reply1.content.lower() or "📭" in reply1.content.lower() or "\U0001f4ec" in reply1.content.lower() or "\U0001f4ea" in reply1.content.lower():
                             randclassname = random.choice(r2srand)
                             await reply1.author.send(randclassname)
                             
@@ -462,6 +449,7 @@ async def on_message(message):
                                                                 await reply7.channel.send(to1)
                                                                 session.remove(reply7.author)
                                                             else:
+                                                    #Query End w. 2 Attachments
                                                                 if "done" in reply8.content.lower():
                                                                     finalattachments = "\n".join(submitattach)
                                                         #If Yes Tag
@@ -592,141 +580,21 @@ async def on_message(message):
                                                                                     session.remove(reply7.author)
                                                                                 else:
                                                                                     session.remove(reply7.author)
-#Attachment 4
+#Attachment 3
                                                                 else:
-                                                                    if "done" in reply9.content.lower():
-                                                                        finalattachments = "\n".join(submitattach)
-                                                            #If Yes Tag
-                                                                        if "ye" in reply4.content.lower() or "sure" in reply4.content.lower():
-                                                                #If No Note
-                                                                            if reply5.content.lower() == "no":
-                                                                                attachcount = len(submitattach)
-                                                                                embedcolor = random.choice(embedcoloroptions)
-                                                                                postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
-                                                                                postembed.set_author(name=f"Posting as {reply7.author.name}", icon_url=f"{reply7.author.avatar_url}")
-                                                                                postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
-                                                                                postembed.add_field(name="Note", value="Not Included", inline=True)
-                                                                                postembed.add_field(name="Tag", value="Included", inline=True)
-                                                                                postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
-                                                                                postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
-                                                                                send8 = await reply7.channel.send(r8s, embed=postembed)
-                                                                                
-                                                                                def check(m):
-                                                                                    return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
-                                                                                
-                                                                                try:
-                                                                                    reply8 = await client.wait_for("message", timeout=60.0, check=check)
-                                                                                    
-                                                                                except asyncio.TimeoutError:
-                                                                                    await reply6.channel.send(to1)
-                                                                                    session.remove(reply6.author)
-                                                                                else:
-                                                                                    if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                        submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{finalattachments}"
-                                                                                        await reply8.channel.send(r7s)
-                                                                                        await botforwards.send(submissionforward)
-                                                                                        submitattach.clear
-                                                                                        session.remove(reply7.author)
-                                                                                    else:
-                                                                                        session.remove(reply7.author)
-                                                                #If Yes Note
-                                                                            else:
-                                                                                attachcount = len(submitattach)
-                                                                                embedcolor = random.choice(embedcoloroptions)
-                                                                                postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
-                                                                                postembed.set_author(name=f"Posting as {reply7.author.name}", icon_url=f"{reply7.author.avatar_url}")
-                                                                                postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
-                                                                                postembed.add_field(name="Note", value=f"{reply5.content}", inline=True)
-                                                                                postembed.add_field(name="Tag", value="Included", inline=True)
-                                                                                postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
-                                                                                postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
-                                                                                send8 = await reply7.channel.send(r8s, embed=postembed)
-                                                                                
-                                                                                def check(m):
-                                                                                    return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
-                                                                                
-                                                                                try:
-                                                                                    reply8 = await client.wait_for("message", timeout=60.0, check=check)
-                                                                                    
-                                                                                except asyncio.TimeoutError:
-                                                                                    await reply6.channel.send(to1)
-                                                                                    session.remove(reply6.author)
-                                                                                else:
-                                                                                    if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                        submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
-                                                                                        await reply8.channel.send(r7s)
-                                                                                        await botforwards.send(submissionforward)
-                                                                                        submitattach.clear
-                                                                                        session.remove(reply7.author)
-                                                                                    else:
-                                                                                        session.remove(reply7.author)
-                                                            #If No Tag
-                                                                        else:
-                                                                            if reply5.content.lower() == "no":
-                                                                #If No Note
-                                                                                attachcount = len(submitattach)
-                                                                                embedcolor = random.choice(embedcoloroptions)
-                                                                                postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
-                                                                                postembed.set_author(name=f"Posting as Anonymous", icon_url=f"{client.user.avatar_url}")
-                                                                                postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
-                                                                                postembed.add_field(name="Note", value="Not Included", inline=True)
-                                                                                postembed.add_field(name="Tag", value="Included", inline=True)
-                                                                                postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
-                                                                                postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
-                                                                                send8 = await reply7.channel.send(r8s, embed=postembed)
-                                                                                
-                                                                                def check(m):
-                                                                                    return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
-                                                                                
-                                                                                try:
-                                                                                    reply8 = await client.wait_for("message", timeout=60.0, check=check)
-                                                                                    
-                                                                                except asyncio.TimeoutError:
-                                                                                    await reply6.channel.send(to1)
-                                                                                    session.remove(reply6.author)
-                                                                                else:
-                                                                                    if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                        submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n{finalattachments}"
-                                                                                        await reply8.channel.send(r7s)
-                                                                                        await botforwards.send(submissionforward)
-                                                                                        submitattach.clear
-                                                                                        session.remove(reply7.author)
-                                                                                    else:
-                                                                                        session.remove(reply7.author)
-                                                                #If Yes Note
-                                                                            else:
-                                                                                attachcount = len(submitattach)
-                                                                                embedcolor = random.choice(embedcoloroptions)
-                                                                                postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
-                                                                                postembed.set_author(name=f"Posting as Anonymous", icon_url=f"{client.user.avatar_url}")
-                                                                                postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
-                                                                                postembed.add_field(name="Note", value=f"{reply5.content}", inline=True)
-                                                                                postembed.add_field(name="Tag", value="Included", inline=True)
-                                                                                postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
-                                                                                postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
-                                                                                send8 = await reply7.channel.send(r8s, embed=postembed)
-                                                                                
-                                                                                def check(m):
-                                                                                    return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
-                                                                                
-                                                                                try:
-                                                                                    reply8 = await client.wait_for("message", timeout=60.0, check=check)
-                                                                                    
-                                                                                except asyncio.TimeoutError:
-                                                                                    await reply6.channel.send(to1)
-                                                                                    session.remove(reply6.author)
-                                                                                else:
-                                                                                    if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                        submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
-                                                                                        await reply8.channel.send(r7s)
-                                                                                        await botforwards.send(submissionforward)
-                                                                                        submitattach.clear
-                                                                                        session.remove(reply7.author)
-                                                                                    else:
-                                                                                        session.remove(reply7.author)
-#Attachment 5
+                                                                    for attachment in reply8.attachments:
+                                                                        submitattach.append(attachment.url)
+                                                                    def check(m):
+                                                                        return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
+                                                                    
+                                                                    try:
+                                                                        reply8 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                        
+                                                                    except asyncio.TimeoutError:
+                                                                        await reply7.channel.send(to1)
+                                                                        session.remove(reply7.author)
                                                                     else:
-                                                                        if "done" in reply10.content.lower():
+                                                                        if "done" in reply8.content.lower():
                                                                             finalattachments = "\n".join(submitattach)
                                                                 #If Yes Tag
                                                                             if "ye" in reply4.content.lower() or "sure" in reply4.content.lower():
@@ -776,10 +644,10 @@ async def on_message(message):
                                                                                     
                                                                                     def check(m):
                                                                                         return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
-
+                                                                                    
                                                                                     try:
                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
-
+                                                                                        
                                                                                     except asyncio.TimeoutError:
                                                                                         await reply6.channel.send(to1)
                                                                                         session.remove(reply6.author)
@@ -837,13 +705,13 @@ async def on_message(message):
                                                                                     postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
                                                                                     postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
                                                                                     send8 = await reply7.channel.send(r8s, embed=postembed)
-
+                                                                                    
                                                                                     def check(m):
                                                                                         return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
-
+                                                                                    
                                                                                     try:
                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
-
+                                                                                        
                                                                                     except asyncio.TimeoutError:
                                                                                         await reply6.channel.send(to1)
                                                                                         session.remove(reply6.author)
@@ -856,20 +724,442 @@ async def on_message(message):
                                                                                             session.remove(reply7.author)
                                                                                         else:
                                                                                             session.remove(reply7.author)
-#Attachment Overload
+    #Attachment 4
                                                                         else:
-                                                                            if "done" in reply11.content.lower():
-                                                                                await reply10.channel.send(r7s)
-                                                                                botforwards = client.get_channel(813872172799754250)
-                                                                                submissionforward = f"**ASSIGNMENT SUBMISSION from {reply10.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{finalattachments}"
-                                                                                await botforwards.send(submissionforward)
-                                                                                submitattach.clear
-                                                                                session.remove(reply11.author)
+                                                                            for attachment in reply8.attachments:
+                                                                                submitattach.append(attachment.url)
+                                                                            def check(m):
+                                                                                return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
+                                                                            
+                                                                            try:
+                                                                                reply8 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                
+                                                                            except asyncio.TimeoutError:
+                                                                                await reply7.channel.send(to1)
+                                                                                session.remove(reply7.author)
                                                                             else:
-                                                                                await reply11.channel.send(ol3)
-                                                                                session.remove(reply11.author)
-#Errors
+                                                                                if "done" in reply8.content.lower():
+                                                                                    finalattachments = "\n".join(submitattach)
+                                                                        #If Yes Tag
+                                                                                    if "ye" in reply4.content.lower() or "sure" in reply4.content.lower():
+                                                                            #If No Note
+                                                                                        if reply5.content.lower() == "no":
+                                                                                            attachcount = len(submitattach)
+                                                                                            embedcolor = random.choice(embedcoloroptions)
+                                                                                            postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
+                                                                                            postembed.set_author(name=f"Posting as {reply7.author.name}", icon_url=f"{reply7.author.avatar_url}")
+                                                                                            postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
+                                                                                            postembed.add_field(name="Note", value="Not Included", inline=True)
+                                                                                            postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                                            postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
+                                                                                            postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
+                                                                                            send8 = await reply7.channel.send(r8s, embed=postembed)
+                                                                                            
+                                                                                            def check(m):
+                                                                                                return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
+                                                                                            
+                                                                                            try:
+                                                                                                reply8 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                                
+                                                                                            except asyncio.TimeoutError:
+                                                                                                await reply6.channel.send(to1)
+                                                                                                session.remove(reply6.author)
+                                                                                            else:
+                                                                                                if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
+                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{finalattachments}"
+                                                                                                    await reply8.channel.send(r7s)
+                                                                                                    await botforwards.send(submissionforward)
+                                                                                                    submitattach.clear
+                                                                                                    session.remove(reply7.author)
+                                                                                                else:
+                                                                                                    session.remove(reply7.author)
+                                                                            #If Yes Note
+                                                                                        else:
+                                                                                            attachcount = len(submitattach)
+                                                                                            embedcolor = random.choice(embedcoloroptions)
+                                                                                            postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
+                                                                                            postembed.set_author(name=f"Posting as {reply7.author.name}", icon_url=f"{reply7.author.avatar_url}")
+                                                                                            postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
+                                                                                            postembed.add_field(name="Note", value=f"{reply5.content}", inline=True)
+                                                                                            postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                                            postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
+                                                                                            postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
+                                                                                            send8 = await reply7.channel.send(r8s, embed=postembed)
+                                                                                            
+                                                                                            def check(m):
+                                                                                                return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
 
+                                                                                            try:
+                                                                                                reply8 = await client.wait_for("message", timeout=60.0, check=check)
+
+                                                                                            except asyncio.TimeoutError:
+                                                                                                await reply6.channel.send(to1)
+                                                                                                session.remove(reply6.author)
+                                                                                            else:
+                                                                                                if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
+                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                                                    await reply8.channel.send(r7s)
+                                                                                                    await botforwards.send(submissionforward)
+                                                                                                    submitattach.clear
+                                                                                                    session.remove(reply7.author)
+                                                                                                else:
+                                                                                                    session.remove(reply7.author)
+                                                                        #If No Tag
+                                                                                    else:
+                                                                                        if reply5.content.lower() == "no":
+                                                                            #If No Note
+                                                                                            attachcount = len(submitattach)
+                                                                                            embedcolor = random.choice(embedcoloroptions)
+                                                                                            postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
+                                                                                            postembed.set_author(name=f"Posting as Anonymous", icon_url=f"{client.user.avatar_url}")
+                                                                                            postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
+                                                                                            postembed.add_field(name="Note", value="Not Included", inline=True)
+                                                                                            postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                                            postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
+                                                                                            postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
+                                                                                            send8 = await reply7.channel.send(r8s, embed=postembed)
+                                                                                            
+                                                                                            def check(m):
+                                                                                                return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
+                                                                                            
+                                                                                            try:
+                                                                                                reply8 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                                
+                                                                                            except asyncio.TimeoutError:
+                                                                                                await reply6.channel.send(to1)
+                                                                                                session.remove(reply6.author)
+                                                                                            else:
+                                                                                                if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
+                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n{finalattachments}"
+                                                                                                    await reply8.channel.send(r7s)
+                                                                                                    await botforwards.send(submissionforward)
+                                                                                                    submitattach.clear
+                                                                                                    session.remove(reply7.author)
+                                                                                                else:
+                                                                                                    session.remove(reply7.author)
+                                                                            #If Yes Note
+                                                                                        else:
+                                                                                            attachcount = len(submitattach)
+                                                                                            embedcolor = random.choice(embedcoloroptions)
+                                                                                            postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
+                                                                                            postembed.set_author(name=f"Posting as Anonymous", icon_url=f"{client.user.avatar_url}")
+                                                                                            postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
+                                                                                            postembed.add_field(name="Note", value=f"{reply5.content}", inline=True)
+                                                                                            postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                                            postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
+                                                                                            postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
+                                                                                            send8 = await reply7.channel.send(r8s, embed=postembed)
+
+                                                                                            def check(m):
+                                                                                                return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
+
+                                                                                            try:
+                                                                                                reply8 = await client.wait_for("message", timeout=60.0, check=check)
+
+                                                                                            except asyncio.TimeoutError:
+                                                                                                await reply6.channel.send(to1)
+                                                                                                session.remove(reply6.author)
+                                                                                            else:
+                                                                                                if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
+                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                                                    await reply8.channel.send(r7s)
+                                                                                                    await botforwards.send(submissionforward)
+                                                                                                    submitattach.clear
+                                                                                                    session.remove(reply7.author)
+                                                                                                else:
+                                                                                                    session.remove(reply7.author)
+    #Attachment 5
+                                                                                else:
+                                                                                    for attachment in reply8.attachments:
+                                                                                        submitattach.append(attachment.url)
+                                                                                    def check(m):
+                                                                                        return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
+                                                                                    
+                                                                                    try:
+                                                                                        reply8 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                        
+                                                                                    except asyncio.TimeoutError:
+                                                                                        await reply7.channel.send(to1)
+                                                                                        session.remove(reply7.author)
+                                                                                    else:
+                                                                                        if "done" in reply8.content.lower():
+                                                                                            finalattachments = "\n".join(submitattach)
+                                                                                #If Yes Tag
+                                                                                            if "ye" in reply4.content.lower() or "sure" in reply4.content.lower():
+                                                                                    #If No Note
+                                                                                                if reply5.content.lower() == "no":
+                                                                                                    attachcount = len(submitattach)
+                                                                                                    embedcolor = random.choice(embedcoloroptions)
+                                                                                                    postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
+                                                                                                    postembed.set_author(name=f"Posting as {reply7.author.name}", icon_url=f"{reply7.author.avatar_url}")
+                                                                                                    postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
+                                                                                                    postembed.add_field(name="Note", value="Not Included", inline=True)
+                                                                                                    postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                                                    postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
+                                                                                                    postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
+                                                                                                    send8 = await reply7.channel.send(r8s, embed=postembed)
+                                                                                                    
+                                                                                                    def check(m):
+                                                                                                        return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
+                                                                                                    
+                                                                                                    try:
+                                                                                                        reply8 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                                        
+                                                                                                    except asyncio.TimeoutError:
+                                                                                                        await reply6.channel.send(to1)
+                                                                                                        session.remove(reply6.author)
+                                                                                                    else:
+                                                                                                        if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
+                                                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{finalattachments}"
+                                                                                                            await reply8.channel.send(r7s)
+                                                                                                            await botforwards.send(submissionforward)
+                                                                                                            submitattach.clear
+                                                                                                            session.remove(reply7.author)
+                                                                                                        else:
+                                                                                                            session.remove(reply7.author)
+                                                                                    #If Yes Note
+                                                                                                else:
+                                                                                                    attachcount = len(submitattach)
+                                                                                                    embedcolor = random.choice(embedcoloroptions)
+                                                                                                    postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
+                                                                                                    postembed.set_author(name=f"Posting as {reply7.author.name}", icon_url=f"{reply7.author.avatar_url}")
+                                                                                                    postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
+                                                                                                    postembed.add_field(name="Note", value=f"{reply5.content}", inline=True)
+                                                                                                    postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                                                    postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
+                                                                                                    postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
+                                                                                                    send8 = await reply7.channel.send(r8s, embed=postembed)
+                                                                                                    
+                                                                                                    def check(m):
+                                                                                                        return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
+
+                                                                                                    try:
+                                                                                                        reply8 = await client.wait_for("message", timeout=60.0, check=check)
+
+                                                                                                    except asyncio.TimeoutError:
+                                                                                                        await reply6.channel.send(to1)
+                                                                                                        session.remove(reply6.author)
+                                                                                                    else:
+                                                                                                        if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
+                                                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                                                            await reply8.channel.send(r7s)
+                                                                                                            await botforwards.send(submissionforward)
+                                                                                                            submitattach.clear
+                                                                                                            session.remove(reply7.author)
+                                                                                                        else:
+                                                                                                            session.remove(reply7.author)
+                                                                                #If No Tag
+                                                                                            else:
+                                                                                                if reply5.content.lower() == "no":
+                                                                                    #If No Note
+                                                                                                    attachcount = len(submitattach)
+                                                                                                    embedcolor = random.choice(embedcoloroptions)
+                                                                                                    postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
+                                                                                                    postembed.set_author(name=f"Posting as Anonymous", icon_url=f"{client.user.avatar_url}")
+                                                                                                    postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
+                                                                                                    postembed.add_field(name="Note", value="Not Included", inline=True)
+                                                                                                    postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                                                    postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
+                                                                                                    postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
+                                                                                                    send8 = await reply7.channel.send(r8s, embed=postembed)
+                                                                                                    
+                                                                                                    def check(m):
+                                                                                                        return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
+                                                                                                    
+                                                                                                    try:
+                                                                                                        reply8 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                                        
+                                                                                                    except asyncio.TimeoutError:
+                                                                                                        await reply6.channel.send(to1)
+                                                                                                        session.remove(reply6.author)
+                                                                                                    else:
+                                                                                                        if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
+                                                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n{finalattachments}"
+                                                                                                            await reply8.channel.send(r7s)
+                                                                                                            await botforwards.send(submissionforward)
+                                                                                                            submitattach.clear
+                                                                                                            session.remove(reply7.author)
+                                                                                                        else:
+                                                                                                            session.remove(reply7.author)
+                                                                                    #If Yes Note
+                                                                                                else:
+                                                                                                    attachcount = len(submitattach)
+                                                                                                    embedcolor = random.choice(embedcoloroptions)
+                                                                                                    postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
+                                                                                                    postembed.set_author(name=f"Posting as Anonymous", icon_url=f"{client.user.avatar_url}")
+                                                                                                    postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
+                                                                                                    postembed.add_field(name="Note", value=f"{reply5.content}", inline=True)
+                                                                                                    postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                                                    postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
+                                                                                                    postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
+                                                                                                    send8 = await reply7.channel.send(r8s, embed=postembed)
+
+                                                                                                    def check(m):
+                                                                                                        return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
+
+                                                                                                    try:
+                                                                                                        reply8 = await client.wait_for("message", timeout=60.0, check=check)
+
+                                                                                                    except asyncio.TimeoutError:
+                                                                                                        await reply6.channel.send(to1)
+                                                                                                        session.remove(reply6.author)
+                                                                                                    else:
+                                                                                                        if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
+                                                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                                                            await reply8.channel.send(r7s)
+                                                                                                            await botforwards.send(submissionforward)
+                                                                                                            submitattach.clear
+                                                                                                            session.remove(reply7.author)
+                                                                                                        else:
+                                                                                                            session.remove(reply7.author)
+        #Attachment Final
+                                                                                        else:
+                                                                                            for attachment in reply8.attachments:
+                                                                                                submitattach.append(attachment.url)
+                                                                                            def check(m):
+                                                                                                return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
+                                                                                            
+                                                                                            try:
+                                                                                                reply8 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                                
+                                                                                            except asyncio.TimeoutError:
+                                                                                                await reply7.channel.send(to1)
+                                                                                                session.remove(reply7.author)
+                                                                                            else:
+                                                                                                if "done" in reply8.content.lower():
+                                                                                                    finalattachments = "\n".join(submitattach)
+                                                                                        #If Yes Tag
+                                                                                                    if "ye" in reply4.content.lower() or "sure" in reply4.content.lower():
+                                                                                            #If No Note
+                                                                                                        if reply5.content.lower() == "no":
+                                                                                                            attachcount = len(submitattach)
+                                                                                                            embedcolor = random.choice(embedcoloroptions)
+                                                                                                            postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
+                                                                                                            postembed.set_author(name=f"Posting as {reply7.author.name}", icon_url=f"{reply7.author.avatar_url}")
+                                                                                                            postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
+                                                                                                            postembed.add_field(name="Note", value="Not Included", inline=True)
+                                                                                                            postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                                                            postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
+                                                                                                            postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
+                                                                                                            send8 = await reply7.channel.send(r8s, embed=postembed)
+                                                                                                            
+                                                                                                            def check(m):
+                                                                                                                return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
+                                                                                                            
+                                                                                                            try:
+                                                                                                                reply8 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                                                
+                                                                                                            except asyncio.TimeoutError:
+                                                                                                                await reply6.channel.send(to1)
+                                                                                                                session.remove(reply6.author)
+                                                                                                            else:
+                                                                                                                if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
+                                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{finalattachments}"
+                                                                                                                    await reply8.channel.send(r7s)
+                                                                                                                    await botforwards.send(submissionforward)
+                                                                                                                    submitattach.clear
+                                                                                                                    session.remove(reply7.author)
+                                                                                                                else:
+                                                                                                                    session.remove(reply7.author)
+                                                                                            #If Yes Note
+                                                                                                        else:
+                                                                                                            attachcount = len(submitattach)
+                                                                                                            embedcolor = random.choice(embedcoloroptions)
+                                                                                                            postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
+                                                                                                            postembed.set_author(name=f"Posting as {reply7.author.name}", icon_url=f"{reply7.author.avatar_url}")
+                                                                                                            postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
+                                                                                                            postembed.add_field(name="Note", value=f"{reply5.content}", inline=True)
+                                                                                                            postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                                                            postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
+                                                                                                            postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
+                                                                                                            send8 = await reply7.channel.send(r8s, embed=postembed)
+                                                                                                            
+                                                                                                            def check(m):
+                                                                                                                return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
+
+                                                                                                            try:
+                                                                                                                reply8 = await client.wait_for("message", timeout=60.0, check=check)
+
+                                                                                                            except asyncio.TimeoutError:
+                                                                                                                await reply6.channel.send(to1)
+                                                                                                                session.remove(reply6.author)
+                                                                                                            else:
+                                                                                                                if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
+                                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                                                                    await reply8.channel.send(r7s)
+                                                                                                                    await botforwards.send(submissionforward)
+                                                                                                                    submitattach.clear
+                                                                                                                    session.remove(reply7.author)
+                                                                                                                else:
+                                                                                                                    session.remove(reply7.author)
+                                                                                        #If No Tag
+                                                                                                    else:
+                                                                                                        if reply5.content.lower() == "no":
+                                                                                            #If No Note
+                                                                                                            attachcount = len(submitattach)
+                                                                                                            embedcolor = random.choice(embedcoloroptions)
+                                                                                                            postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
+                                                                                                            postembed.set_author(name=f"Posting as Anonymous", icon_url=f"{client.user.avatar_url}")
+                                                                                                            postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
+                                                                                                            postembed.add_field(name="Note", value="Not Included", inline=True)
+                                                                                                            postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                                                            postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
+                                                                                                            postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
+                                                                                                            send8 = await reply7.channel.send(r8s, embed=postembed)
+                                                                                                            
+                                                                                                            def check(m):
+                                                                                                                return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
+                                                                                                            
+                                                                                                            try:
+                                                                                                                reply8 = await client.wait_for("message", timeout=60.0, check=check)
+                                                                                                                
+                                                                                                            except asyncio.TimeoutError:
+                                                                                                                await reply6.channel.send(to1)
+                                                                                                                session.remove(reply6.author)
+                                                                                                            else:
+                                                                                                                if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
+                                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n{finalattachments}"
+                                                                                                                    await reply8.channel.send(r7s)
+                                                                                                                    await botforwards.send(submissionforward)
+                                                                                                                    submitattach.clear
+                                                                                                                    session.remove(reply7.author)
+                                                                                                                else:
+                                                                                                                    session.remove(reply7.author)
+                                                                                            #If Yes Note
+                                                                                                        else:
+                                                                                                            attachcount = len(submitattach)
+                                                                                                            embedcolor = random.choice(embedcoloroptions)
+                                                                                                            postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
+                                                                                                            postembed.set_author(name=f"Posting as Anonymous", icon_url=f"{client.user.avatar_url}")
+                                                                                                            postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
+                                                                                                            postembed.add_field(name="Note", value=f"{reply5.content}", inline=True)
+                                                                                                            postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                                                            postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
+                                                                                                            postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
+                                                                                                            send8 = await reply7.channel.send(r8s, embed=postembed)
+
+                                                                                                            def check(m):
+                                                                                                                return client.user.id != m.author.id and m.guild is None and m.author == reply7.author
+
+                                                                                                            try:
+                                                                                                                reply8 = await client.wait_for("message", timeout=60.0, check=check)
+
+                                                                                                            except asyncio.TimeoutError:
+                                                                                                                await reply6.channel.send(to1)
+                                                                                                                session.remove(reply6.author)
+                                                                                                            else:
+                                                                                                                if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
+                                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                                                                    await reply8.channel.send(r7s)
+                                                                                                                    await botforwards.send(submissionforward)
+                                                                                                                    submitattach.clear
+                                                                                                                    session.remove(reply7.author)
+                                                                                                                else:
+                                                                                                                    session.remove(reply7.author)
+                                                                                                else:
+                                                                                                    await reply8.channel.send(ol3)
+                                                                                                    session.remove(reply8.author)
+#Errors
                             #Class Inval
                                 else:
                                     randominvalclass = random.choice(invalclass)
@@ -913,7 +1203,7 @@ async def on_message(message):
                         await message.add_reaction("<:bad_meme:808826207361695786>")
 #Moderator Post
                 elif message.channel == client.get_channel(822602852609687552):
-                    if "assignment title" in message.content.lower() and "class" in message.content.lower() and "assignment id" in message.content.lower():
+                    if "assignment title" in message.content.lower() and "class" in message.content.lower() and "<@&" in message.content.lower():
                         tokena = secrets.token_hex(30)
                         await message.add_reaction("<:logo:823040639058837505>")
                         await message.channel.send(":white_check_mark: Section 1 Clear", delete_after=3)
@@ -926,13 +1216,13 @@ async def on_message(message):
                         forwardchannel = client.get_channel(822618074548535378)
                         forward = f"`{message.author.name}` submitted a post query. \n ID: `0x{tokena}` \n```{message.content}```"
                         await forwardchannel.send(forward)
-                        
+
                     else:
                         if "assignment title" in message.content.lower():
                             await message.channel.send(":white_check_mark: Section 1 Clear", delete_after=3)
                             if "class" in message.content.lower():
                                 await message.channel.send(":white_check_mark: Section 2 Clear", delete_after=3)
-                                if "submission type" in message.content.lower():
+                                if "<@&" in message.content.lower():
                                     await message.channel.send(":white_check_mark: Section 3 Clear", delete_after=3)
                                     if "user" in message.content.lower():
                                         await message.channel.send(":white_check_mark: Section 4 Clear", delete_after=3)
@@ -949,4 +1239,4 @@ async def on_message(message):
                             await message.channel.send(":customs: **Section 1 Check Failed.**  Please edit and try again.", delete_after=5)
                             await message.add_reaction("🛃")
 
-client.run(TOKEN)
+client.run('TOKEN')
