@@ -9,15 +9,10 @@ intents.members = True
 session = []
 submitattach = []
 forwardattachments = []
+client = commands.Bot(command_prefix='!', intents=intents)
 
-#Main Menu
-r1l1 = "Hey!  I'm a bot that can help you with anything related to the Ironic server.  What can I help you with?"
-r1l2 = ":mailbox: Submission; If you have an assignment to submit, you can do that here!"
-r1l3 = ":books: Join/Leave Class; If you want to join/leave a class, you can do that here!"
-r1l4 = ":white_check_mark: Correction; If you noticed a mistake in a submission, you can correct them here!"
-r1l5 = ":wrench: Help; If you need anything else, that can be resolved here!"
-r1l6 = "You can respond with a similar word, or the according emote.  If you get lost in the directory, you can always type $start to restart your session."
-r1 = f"{r1l1} \n {r1l2} \n {r1l3} \n {r1l4} \n {r1l5} \n {r1l6}"
+#Personalization
+embedcoloroptions = [0xffb5af, 0xa8c6fe, 0xb18cfe, 0xf4a4c0, 0x94e3fe, 0xb18cfe]
 
 #Submit
 r2srand = [":partying_face: Cool!  What class is this for?  Please respond using the class number (1-15).", ":smiling_face_with_3_hearts: YOOOO thanks for contributing to the community!  What class do you want to submit to?  Please respond using the class number (1-15).", ":grin: Nice! What class is this for? Please respond using the class number (1-15).", ":cowboy: Woah, cool!  Thanks so much for contributing to the community! What class do you want to submit to?  Respond using the class number (1-15)."]
@@ -80,11 +75,6 @@ nullclub = ":confused: Sorry, this class doesn't have an active club at the mome
 noclassclub = ":confused: Sorry, it looks like you haven't included a valid class number. Maybe try again? Or, you can type `$club ?` to view a list of all active clubs."
 club9 = ":ballot_box_with_check: Great, we'll add you to The Math Study Club right away!"
 club6 = ":ballot_box_with_check: Great, we'll add you to The Joy Luck Club right away!"
-
-#Personalization
-embedcoloroptions = [0xffb5af, 0xa8c6fe, 0xb18cfe, 0xf4a4c0, 0x94e3fe, 0xb18cfe]
-
-client = commands.Bot(command_prefix='!', intents=intents)
 
 @client.event
 async def on_ready():
@@ -152,7 +142,15 @@ async def on_message(message):
             if message.guild is None:
                 if message.author not in session:
 #Main Menu
-                    await message.author.send(r1)
+                    embedcolor = random.choice(embedcoloroptions)
+                    mainembed = discord.Embed(title="Hey! I'm a bot that can help you with anything related to Ironic.", description=f"You can respond with a similar word, or the according emote.", color=embedcolor)
+                    mainembed.set_author(name=f"{client.user.name}", icon_url=f"{client.user.avatar_url}")
+                    mainembed.add_field(name=":mailbox: Submit an Assignment", value=f"If you have an assignment to submit, you can do that here.", inline=False)
+                    mainembed.add_field(name=":woman_student: Join a Club", value=f"If you want to join a club, you can do that here.", inline=False)
+                    mainembed.add_field(name=":books: Join a Class", value=f"If you want to join/leave a class, you can do that here.", inline=False)
+                    mainembed.add_field(name=":white_check_mark: Issue a Correction", value=f"If you noticed a mistake in a submission, you can correct them here.", inline=False)
+                    mainembed.add_field(name=":wrench: Help", value=f"If you need anything else, that can be resolved here.", inline=False)
+                    await message.author.send(embed=mainembed)
                     session.append(message.author)
                     submitattach = []
             
