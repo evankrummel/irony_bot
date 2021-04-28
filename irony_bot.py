@@ -79,9 +79,6 @@ club6 = ":ballot_box_with_check: Great, we'll add you to The Joy Luck Club right
 @client.event
 async def on_ready():
     print(f"{client.user.name} is online!")
-    user = client.get_channel(822482846119231536)
-    forward = f"`{client.user.name}` is online!"
-    await user.send(forward)
     await client.change_presence(status=discord.Status.idle, activity=discord.Activity(type=discord.ActivityType.watching, name="over the server!"))
 
 @client.event
@@ -118,26 +115,6 @@ async def on_message(message):
         if "$start" in message.content.lower():
             await message.author.send("Restarting Session")
             session.clear()
-#Clubs
-        elif "$club" in message.content.lower():
-            if message.content.lower() in ["1", "2", "3", "4", "5", "7", "8", "10", "11", "12", "13", "14", "15"]:
-                await message.author.send(nullclub)
-        #Joy Luck
-            elif "6" in message.content.lower():
-                await message.author.send(club6)
-                botforwards = client.get_channel(813872172799754250)
-                forward = f"`{message.author.name}` wants to join `Joy Luck Club - 6` <@&806274913904230410>"
-                await botforwards.send(forward)
-        #Math Study
-            elif "9" in message.content.lower():
-                await message.author.send(club9)
-                botforwards = client.get_channel(813872172799754250)
-                forward = f"`{message.author.name}` wants to join `Math Study Club - 9` <@&806274913904230410>"
-                await botforwards.send(forward)
-            elif "?" in message.content.lower():
-                await message.author.send(clubs)
-            else:
-                await message.author.send(noclassclub)
         else:
             if message.guild is None:
                 if message.author not in session:
@@ -366,7 +343,7 @@ async def on_message(message):
                                                                         session.remove(message.author)
                                                                     else:
                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{finalattachments}"
+                                                                            submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n**:woman_student: User:** <@{reply7.author.id}> \n \n{finalattachments}"
                                                                             await reply8.channel.send(r7s)
                                                                             await botforwards.send(submissionforward)
                                                                             submitattach.clear
@@ -402,7 +379,7 @@ async def on_message(message):
                                                                         session.remove(message.author)
                                                                     else:
                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                            submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n**:woman_student: User:** <@{reply7.author.id}>\n \n**:notepad_spiral: Submission Notes:** `{reply5.content}` \n \n{finalattachments}"
                                                                             await reply8.channel.send(r7s)
                                                                             await botforwards.send(submissionforward)
                                                                             submitattach.clear
@@ -440,7 +417,7 @@ async def on_message(message):
                                                                         session.remove(message.author)
                                                                     else:
                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n{finalattachments}"
+                                                                            submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n \n{finalattachments}"
                                                                             await reply8.channel.send(r7s)
                                                                             await botforwards.send(submissionforward)
                                                                             submitattach.clear
@@ -476,7 +453,7 @@ async def on_message(message):
                                                                         session.remove(message.author)
                                                                     else:
                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                            submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n \n**:notepad_spiral: Submission Notes:** `{reply5.content}` \n \n{finalattachments}"
                                                                             await reply8.channel.send(r7s)
                                                                             await botforwards.send(submissionforward)
                                                                             submitattach.clear
@@ -536,7 +513,7 @@ async def on_message(message):
                                                                                 session.remove(message.author)
                                                                             else:
                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{finalattachments}"
+                                                                                    submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n**:woman_student: User:** <@{reply7.author.id}> \n \n{finalattachments}"
                                                                                     await reply8.channel.send(r7s)
                                                                                     await botforwards.send(submissionforward)
                                                                                     submitattach.clear
@@ -572,7 +549,7 @@ async def on_message(message):
                                                                                 session.remove(message.author)
                                                                             else:
                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                                    submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n**:woman_student: User:** <@{reply7.author.id}>\n \n**:notepad_spiral: Submission Notes:** `{reply5.content}` \n \n{finalattachments}"
                                                                                     await reply8.channel.send(r7s)
                                                                                     await botforwards.send(submissionforward)
                                                                                     submitattach.clear
@@ -610,7 +587,7 @@ async def on_message(message):
                                                                                 session.remove(message.author)
                                                                             else:
                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n{finalattachments}"
+                                                                                    submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n \n{finalattachments}"
                                                                                     await reply8.channel.send(r7s)
                                                                                     await botforwards.send(submissionforward)
                                                                                     submitattach.clear
@@ -646,7 +623,7 @@ async def on_message(message):
                                                                                 session.remove(message.author)
                                                                             else:
                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                                    submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n \n**:notepad_spiral: Submission Notes:** `{reply5.content}` \n \n{finalattachments}"
                                                                                     await reply8.channel.send(r7s)
                                                                                     await botforwards.send(submissionforward)
                                                                                     submitattach.clear
@@ -705,7 +682,7 @@ async def on_message(message):
                                                                                         session.remove(message.author)
                                                                                     else:
                                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{finalattachments}"
+                                                                                            submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n**:woman_student: User:** <@{reply7.author.id}> \n \n{finalattachments}"
                                                                                             await reply8.channel.send(r7s)
                                                                                             await botforwards.send(submissionforward)
                                                                                             submitattach.clear
@@ -741,7 +718,7 @@ async def on_message(message):
                                                                                         session.remove(message.author)
                                                                                     else:
                                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                                            submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n**:woman_student: User:** <@{reply7.author.id}>\n \n**:notepad_spiral: Submission Notes:** `{reply5.content}` \n \n{finalattachments}"
                                                                                             await reply8.channel.send(r7s)
                                                                                             await botforwards.send(submissionforward)
                                                                                             submitattach.clear
@@ -779,7 +756,7 @@ async def on_message(message):
                                                                                         session.remove(message.author)
                                                                                     else:
                                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n{finalattachments}"
+                                                                                            submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n \n{finalattachments}"
                                                                                             await reply8.channel.send(r7s)
                                                                                             await botforwards.send(submissionforward)
                                                                                             submitattach.clear
@@ -815,7 +792,7 @@ async def on_message(message):
                                                                                         session.remove(message.author)
                                                                                     else:
                                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                                            submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n \n**:notepad_spiral: Submission Notes:** `{reply5.content}` \n \n{finalattachments}"
                                                                                             await reply8.channel.send(r7s)
                                                                                             await botforwards.send(submissionforward)
                                                                                             submitattach.clear
@@ -874,7 +851,7 @@ async def on_message(message):
                                                                                                 session.remove(message.author)
                                                                                             else:
                                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{finalattachments}"
+                                                                                                    submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n**:woman_student: User:** <@{reply7.author.id}> \n \n{finalattachments}"
                                                                                                     await reply8.channel.send(r7s)
                                                                                                     await botforwards.send(submissionforward)
                                                                                                     submitattach.clear
@@ -910,7 +887,7 @@ async def on_message(message):
                                                                                                 session.remove(message.author)
                                                                                             else:
                                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                                                    submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n**:woman_student: User:** <@{reply7.author.id}>\n \n**:notepad_spiral: Submission Notes:** `{reply5.content}` \n \n{finalattachments}"
                                                                                                     await reply8.channel.send(r7s)
                                                                                                     await botforwards.send(submissionforward)
                                                                                                     submitattach.clear
@@ -948,7 +925,7 @@ async def on_message(message):
                                                                                                 session.remove(message.author)
                                                                                             else:
                                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n{finalattachments}"
+                                                                                                    submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n \n{finalattachments}"
                                                                                                     await reply8.channel.send(r7s)
                                                                                                     await botforwards.send(submissionforward)
                                                                                                     submitattach.clear
@@ -984,7 +961,7 @@ async def on_message(message):
                                                                                                 session.remove(message.author)
                                                                                             else:
                                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                                                    submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n \n**:notepad_spiral: Submission Notes:** `{reply5.content}` \n \n{finalattachments}"
                                                                                                     await reply8.channel.send(r7s)
                                                                                                     await botforwards.send(submissionforward)
                                                                                                     submitattach.clear
@@ -1043,7 +1020,7 @@ async def on_message(message):
                                                                                                         session.remove(message.author)
                                                                                                     else:
                                                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{finalattachments}"
+                                                                                                            submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n**:woman_student: User:** <@{reply7.author.id}> \n \n{finalattachments}"
                                                                                                             await reply8.channel.send(r7s)
                                                                                                             await botforwards.send(submissionforward)
                                                                                                             submitattach.clear
@@ -1079,7 +1056,7 @@ async def on_message(message):
                                                                                                         session.remove(message.author)
                                                                                                     else:
                                                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                                                            submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n**:woman_student: User:** <@{reply7.author.id}>\n \n**:notepad_spiral: Submission Notes:** `{reply5.content}` \n \n{finalattachments}"
                                                                                                             await reply8.channel.send(r7s)
                                                                                                             await botforwards.send(submissionforward)
                                                                                                             submitattach.clear
@@ -1117,7 +1094,7 @@ async def on_message(message):
                                                                                                         session.remove(message.author)
                                                                                                     else:
                                                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n{finalattachments}"
+                                                                                                            submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n \n{finalattachments}"
                                                                                                             await reply8.channel.send(r7s)
                                                                                                             await botforwards.send(submissionforward)
                                                                                                             submitattach.clear
@@ -1153,7 +1130,7 @@ async def on_message(message):
                                                                                                         session.remove(message.author)
                                                                                                     else:
                                                                                                         if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                                            submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                                                            submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n \n**:notepad_spiral: Submission Notes:** `{reply5.content}` \n \n{finalattachments}"
                                                                                                             await reply8.channel.send(r7s)
                                                                                                             await botforwards.send(submissionforward)
                                                                                                             submitattach.clear
@@ -1212,7 +1189,7 @@ async def on_message(message):
                                                                                                                 session.remove(message.author)
                                                                                                             else:
                                                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author} \n \n{finalattachments}"
+                                                                                                                    submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n**:woman_student: User:** <@{reply7.author.id}> \n \n{finalattachments}"
                                                                                                                     await reply8.channel.send(r7s)
                                                                                                                     await botforwards.send(submissionforward)
                                                                                                                     submitattach.clear
@@ -1248,7 +1225,7 @@ async def on_message(message):
                                                                                                                 session.remove(message.author)
                                                                                                             else:
                                                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION from {reply7.author}** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n\*\*:woman_student: User:\*\* @{reply7.author}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                                                                    submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n**:woman_student: User:** <@{reply7.author.id}>\n \n**:notepad_spiral: Submission Notes:** `{reply5.content}` \n \n{finalattachments}"
                                                                                                                     await reply8.channel.send(r7s)
                                                                                                                     await botforwards.send(submissionforward)
                                                                                                                     submitattach.clear
@@ -1286,7 +1263,7 @@ async def on_message(message):
                                                                                                                 session.remove(message.author)
                                                                                                             else:
                                                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n{finalattachments}"
+                                                                                                                    submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n \n{finalattachments}"
                                                                                                                     await reply8.channel.send(r7s)
                                                                                                                     await botforwards.send(submissionforward)
                                                                                                                     submitattach.clear
@@ -1322,7 +1299,7 @@ async def on_message(message):
                                                                                                                 session.remove(message.author)
                                                                                                             else:
                                                                                                                 if "ye" in reply8.content.lower() or "sure" in reply8.content.lower():
-                                                                                                                    submissionforward = f"**ASSIGNMENT SUBMISSION** <@&806274913904230410> \n\n\*\*:pencil: Assignment Title:\*\* \`{reply3.content}\` \n\*\*:books: Class:\*\* \`{classnumber}\`{classmention}\n \n\*\*:notepad_spiral: Submission Notes:\*\* \`{reply5.content}\` \n \n{finalattachments}"
+                                                                                                                    submissionforward = f"**:pencil: Assignment Title:** `{reply3.content}` \n**:books: Class:** `{classnumber}` {classmention}\n \n**:notepad_spiral: Submission Notes:** `{reply5.content}` \n \n{finalattachments}"
                                                                                                                     await reply8.channel.send(r7s)
                                                                                                                     await botforwards.send(submissionforward)
                                                                                                                     submitattach.clear
@@ -1379,42 +1356,70 @@ async def on_message(message):
                     if message.attachments:
                         await message.add_reaction("<:good_meme:808824921484558348>")
                         await message.add_reaction("<:bad_meme:808826207361695786>")
-#Moderator Post
-                elif message.channel == client.get_channel(822602852609687552):
-                    if "assignment title" in message.content.lower() and "class" in message.content.lower() and "<@&" in message.content.lower():
-                        tokena = secrets.token_hex(30)
-                        await message.add_reaction("<:logo:823040639058837505>")
-                        await message.channel.send(":white_check_mark: Section 1 Clear", delete_after=3)
-                        await message.channel.send(":white_check_mark: Section 2 Clear", delete_after=3)
-                        await message.channel.send(":white_check_mark: Section 3 Clear", delete_after=3)
-                        await message.channel.send(":ballot_box_with_check: Transaction has been cleared to T1.  Generating unique hash...", delete_after=5)
-                        await message.author.send(f":hash: Your Post ID is `0x{tokena}`")
-                        userid = message.author.id
-                        await message.channel.send(f":hash: Hash ID: `0x{tokena}` <@{userid}>")
-                        forwardchannel = client.get_channel(822618074548535378)
-                        forward = f"`{message.author.name}` submitted a post query. \n ID: `0x{tokena}` \n```{message.content}```"
-                        await forwardchannel.send(forward)
-
-                    else:
-                        if "assignment title" in message.content.lower():
-                            await message.channel.send(":white_check_mark: Section 1 Clear", delete_after=3)
-                            if "class" in message.content.lower():
-                                await message.channel.send(":white_check_mark: Section 2 Clear", delete_after=3)
-                                if "<@&" in message.content.lower():
-                                    await message.channel.send(":white_check_mark: Section 3 Clear", delete_after=3)
-                                    if "user" in message.content.lower():
-                                        await message.channel.send(":white_check_mark: Section 4 Clear", delete_after=3)
-                                    else:
-                                        await message.channel.send(":customs: **Section 4 Check Failed.**  Please edit and try again.", delete_after=5)
-                                        await message.add_reaction("🛃")
-                                else:
-                                    await message.channel.send(":customs: **Section 3 Check Failed.**  Please edit and try again.", delete_after=5)
-                                    await message.add_reaction("🛃")
-                            else:
-                                await message.channel.send(":customs: **Section 2 Check Failed.**  Please edit and try again.", delete_after=5)
-                            await message.add_reaction("🛃")
-                        else:
-                            await message.channel.send(":customs: **Section 1 Check Failed.**  Please edit and try again.", delete_after=5)
-                            await message.add_reaction("🛃")
-
+                            
+@client.event
+async def on_reaction_add(reaction, user):
+    if user != client.user:
+        if reaction.message.channel == client.get_channel(813872172799754250):
+        
+            if "1 - DP Visual Arts (Whittle)" in reaction.message.content:
+                postchannel = client.get_channel(806269397824045106)
+                await postchannel.send(reaction.message.content)
+                
+            elif "2 - DP History (VanGoor)" in reaction.message.content:
+                postchannel = client.get_channel(806269920466829402)
+                await postchannel.send(reaction.message.content)
+                
+            elif "3 - Spanish (Castillo)" in reaction.message.content:
+                postchannel = client.get_channel(806270412068749352)
+                await postchannel.send(reaction.message.content)
+                
+            elif "4 - AA DP Mathematics (Vecziedins)" in reaction.message.content:
+                postchannel = client.get_channel(806270676448706596)
+                await postchannel.send(reaction.message.content)
+                
+            elif "5 - DP Biology (Thane)" in reaction.message.content:
+                postchannel = client.get_channel(806273544723497010)
+                await postchannel.send(reaction.message.content)
+                
+            elif "6 - DP English (Donohue)" in reaction.message.content:
+                postchannel = client.get_channel(806274132735164457)
+                await postchannel.send(reaction.message.content)
+                
+            elif "7 - DP Chemistry (Vogl)" in reaction.message.content:
+                postchannel = client.get_channel(806274604976963595)
+                await postchannel.send(reaction.message.content)
+                
+            elif "8 - Chinese V (Beckwith)" in reaction.message.content:
+                postchannel = client.get_channel(806308137807642624)
+                await postchannel.send(reaction.message.content)
+                
+            elif "9 - AI DP Mathematics (Burke)" in reaction.message.content:
+                postchannel = client.get_channel(806309826752675881)
+                await postchannel.send(reaction.message.content)
+                
+            elif "10 - DP ESS (Rizley)" in reaction.message.content:
+                postchannel = client.get_channel(806540736148406282)
+                await postchannel.send(reaction.message.content)
+                
+            elif "11 - DP History (Stachura)" in reaction.message.content:
+                postchannel = client.get_channel(806565035404427345)
+                await postchannel.send(reaction.message.content)
+                
+            elif "12 - Music Theory (Jeroudi)" in reaction.message.content:
+                postchannel = client.get_channel(806564949782167602)
+                await postchannel.send(reaction.message.content)
+                
+            elif "13 - TOK (Global)" in reaction.message.content:
+                postchannel = client.get_channel(811759533168263187)
+                await postchannel.send(reaction.message.content)
+                
+            elif "14 - EPIC (Global)" in reaction.message.content:
+                postchannel = client.get_channel(811759606250471434)
+                await postchannel.send(reaction.message.content)
+                
+            elif "15 - Psychology (Miller)" in reaction.message.content:
+                postchannel = client.get_channel(811759692648808534)
+                await postchannel.send(reaction.message.content)
+                
 client.run('TOKEN')
