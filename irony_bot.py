@@ -13,6 +13,7 @@ client = commands.Bot(command_prefix='!', intents=intents)
 
 #Personalization
 embedcoloroptions = [0xffb5af, 0xa8c6fe, 0xb18cfe, 0xf4a4c0, 0x94e3fe, 0xb18cfe]
+emoteadd = ["<:obamba:808863191760764939>", "🥳", "👏", "<:what_a_flex:808864877367656468>", "<:city_kids_amiright:808836874805706862>", "<:sad_but_cool:808849380177870889>", "<:bruh:808835669387903006>", "<:logo2:832649772468797560>"]
 
 #Submit
 r2srand = [":partying_face: Cool!  What class is this for?  Please respond using the class number (1-15).", ":smiling_face_with_3_hearts: YOOOO thanks for contributing to the community!  What class do you want to submit to?  Please respond using the class number (1-15).", ":grin: Nice! What class is this for? Please respond using the class number (1-15).", ":cowboy: Woah, cool!  Thanks so much for contributing to the community! What class do you want to submit to?  Respond using the class number (1-15)."]
@@ -432,7 +433,7 @@ async def on_message(message):
                                                                     postembed.set_author(name=f"Posting as Anonymous", icon_url=f"{client.user.avatar_url}")
                                                                     postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
                                                                     postembed.add_field(name="Note", value=f"{reply5.content}", inline=True)
-                                                                    postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                    postembed.add_field(name="Tag", value="Not Included", inline=True)
                                                                     postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
                                                                     postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
                                                                     send8 = await reply7.channel.send(r8s, embed=postembed)
@@ -566,7 +567,7 @@ async def on_message(message):
                                                                             postembed.set_author(name=f"Posting as Anonymous", icon_url=f"{client.user.avatar_url}")
                                                                             postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
                                                                             postembed.add_field(name="Note", value="Not Included", inline=True)
-                                                                            postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                            postembed.add_field(name="Tag", value="Not Included", inline=True)
                                                                             postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
                                                                             postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
                                                                             send8 = await reply7.channel.send(r8s, embed=postembed)
@@ -602,7 +603,7 @@ async def on_message(message):
                                                                             postembed.set_author(name=f"Posting as Anonymous", icon_url=f"{client.user.avatar_url}")
                                                                             postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
                                                                             postembed.add_field(name="Note", value=f"{reply5.content}", inline=True)
-                                                                            postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                            postembed.add_field(name="Tag", value="Not Included", inline=True)
                                                                             postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
                                                                             postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
                                                                             send8 = await reply7.channel.send(r8s, embed=postembed)
@@ -771,7 +772,7 @@ async def on_message(message):
                                                                                     postembed.set_author(name=f"Posting as Anonymous", icon_url=f"{client.user.avatar_url}")
                                                                                     postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
                                                                                     postembed.add_field(name="Note", value=f"{reply5.content}", inline=True)
-                                                                                    postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                                    postembed.add_field(name="Tag", value="Not Included", inline=True)
                                                                                     postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
                                                                                     postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
                                                                                     send8 = await reply7.channel.send(r8s, embed=postembed)
@@ -829,7 +830,7 @@ async def on_message(message):
                                                                                             postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
                                                                                             postembed.set_author(name=f"Posting as {reply7.author.name}", icon_url=f"{reply7.author.avatar_url}")
                                                                                             postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
-                                                                                            postembed.add_field(name="Note", value="Not Included", inline=True)
+                                                                                            postembed.add_field(name="Note", value="Included", inline=True)
                                                                                             postembed.add_field(name="Tag", value="Included", inline=True)
                                                                                             postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
                                                                                             postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
@@ -904,7 +905,7 @@ async def on_message(message):
                                                                                             postembed.set_author(name=f"Posting as Anonymous", icon_url=f"{client.user.avatar_url}")
                                                                                             postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
                                                                                             postembed.add_field(name="Note", value="Not Included", inline=True)
-                                                                                            postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                                            postembed.add_field(name="Tag", value="Not Included", inline=True)
                                                                                             postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
                                                                                             postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
                                                                                             send8 = await reply7.channel.send(r8s, embed=postembed)
@@ -940,7 +941,7 @@ async def on_message(message):
                                                                                             postembed.set_author(name=f"Posting as Anonymous", icon_url=f"{client.user.avatar_url}")
                                                                                             postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
                                                                                             postembed.add_field(name="Note", value=f"{reply5.content}", inline=True)
-                                                                                            postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                                            postembed.add_field(name="Tag", value="Not Included", inline=True)
                                                                                             postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
                                                                                             postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
                                                                                             send8 = await reply7.channel.send(r8s, embed=postembed)
@@ -1109,7 +1110,7 @@ async def on_message(message):
                                                                                                     postembed.set_author(name=f"Posting as Anonymous", icon_url=f"{client.user.avatar_url}")
                                                                                                     postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
                                                                                                     postembed.add_field(name="Note", value=f"{reply5.content}", inline=True)
-                                                                                                    postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                                                    postembed.add_field(name="Tag", value="Not Included", inline=True)
                                                                                                     postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
                                                                                                     postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
                                                                                                     send8 = await reply7.channel.send(r8s, embed=postembed)
@@ -1167,7 +1168,7 @@ async def on_message(message):
                                                                                                             postembed=discord.Embed(title=f"New Submission to Ironic", description=f"To {classnumber}", color=embedcolor)
                                                                                                             postembed.set_author(name=f"Posting as {reply7.author.name}", icon_url=f"{reply7.author.avatar_url}")
                                                                                                             postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
-                                                                                                            postembed.add_field(name="Note", value="Not Included", inline=True)
+                                                                                                            postembed.add_field(name="Note", value="Included", inline=True)
                                                                                                             postembed.add_field(name="Tag", value="Included", inline=True)
                                                                                                             postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
                                                                                                             postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
@@ -1278,7 +1279,7 @@ async def on_message(message):
                                                                                                             postembed.set_author(name=f"Posting as Anonymous", icon_url=f"{client.user.avatar_url}")
                                                                                                             postembed.add_field(name="Assignment Name", value=f"{reply3.content}", inline=False)
                                                                                                             postembed.add_field(name="Note", value=f"{reply5.content}", inline=True)
-                                                                                                            postembed.add_field(name="Tag", value="Included", inline=True)
+                                                                                                            postembed.add_field(name="Tag", value="Not Included", inline=True)
                                                                                                             postembed.add_field(name="Attachment Count", value=f"{attachcount} File(s)", inline=True)
                                                                                                             postembed.set_footer(text="If everything looks correct, say yes.  Otherwise, say no to start over at the beginning.")
                                                                                                             send8 = await reply7.channel.send(r8s, embed=postembed)
@@ -1364,62 +1365,92 @@ async def on_reaction_add(reaction, user):
         
             if "1 - DP Visual Arts (Whittle)" in reaction.message.content:
                 postchannel = client.get_channel(806269397824045106)
-                await postchannel.send(reaction.message.content)
+                post = await postchannel.send(reaction.message.content)
+                postemote = random.choice(emoteadd)
+                await post.add_reaction(postemote)
                 
             elif "2 - DP History (VanGoor)" in reaction.message.content:
                 postchannel = client.get_channel(806269920466829402)
-                await postchannel.send(reaction.message.content)
+                post = await postchannel.send(reaction.message.content)
+                postemote = random.choice(emoteadd)
+                await post.add_reaction(postemote)
                 
             elif "3 - Spanish (Castillo)" in reaction.message.content:
                 postchannel = client.get_channel(806270412068749352)
-                await postchannel.send(reaction.message.content)
+                post = await postchannel.send(reaction.message.content)
+                postemote = random.choice(emoteadd)
+                await post.add_reaction(postemote)
                 
             elif "4 - AA DP Mathematics (Vecziedins)" in reaction.message.content:
                 postchannel = client.get_channel(806270676448706596)
-                await postchannel.send(reaction.message.content)
+                post = await postchannel.send(reaction.message.content)
+                postemote = random.choice(emoteadd)
+                await post.add_reaction(postemote)
                 
             elif "5 - DP Biology (Thane)" in reaction.message.content:
                 postchannel = client.get_channel(806273544723497010)
-                await postchannel.send(reaction.message.content)
+                post = await postchannel.send(reaction.message.content)
+                postemote = random.choice(emoteadd)
+                await post.add_reaction(postemote)
                 
             elif "6 - DP English (Donohue)" in reaction.message.content:
                 postchannel = client.get_channel(806274132735164457)
-                await postchannel.send(reaction.message.content)
+                post = await postchannel.send(reaction.message.content)
+                postemote = random.choice(emoteadd)
+                await post.add_reaction(postemote)
                 
             elif "7 - DP Chemistry (Vogl)" in reaction.message.content:
                 postchannel = client.get_channel(806274604976963595)
-                await postchannel.send(reaction.message.content)
+                post = await postchannel.send(reaction.message.content)
+                postemote = random.choice(emoteadd)
+                await post.add_reaction(postemote)
                 
             elif "8 - Chinese V (Beckwith)" in reaction.message.content:
                 postchannel = client.get_channel(806308137807642624)
-                await postchannel.send(reaction.message.content)
+                post = await postchannel.send(reaction.message.content)
+                postemote = random.choice(emoteadd)
+                await post.add_reaction(postemote)
                 
             elif "9 - AI DP Mathematics (Burke)" in reaction.message.content:
                 postchannel = client.get_channel(806309826752675881)
-                await postchannel.send(reaction.message.content)
+                post = await postchannel.send(reaction.message.content)
+                postemote = random.choice(emoteadd)
+                await post.add_reaction(postemote)
                 
             elif "10 - DP ESS (Rizley)" in reaction.message.content:
                 postchannel = client.get_channel(806540736148406282)
-                await postchannel.send(reaction.message.content)
+                post = await postchannel.send(reaction.message.content)
+                postemote = random.choice(emoteadd)
+                await post.add_reaction(postemote)
                 
             elif "11 - DP History (Stachura)" in reaction.message.content:
                 postchannel = client.get_channel(806565035404427345)
-                await postchannel.send(reaction.message.content)
+                post = await postchannel.send(reaction.message.content)
+                postemote = random.choice(emoteadd)
+                await post.add_reaction(postemote)
                 
             elif "12 - Music Theory (Jeroudi)" in reaction.message.content:
                 postchannel = client.get_channel(806564949782167602)
-                await postchannel.send(reaction.message.content)
+                post = await postchannel.send(reaction.message.content)
+                postemote = random.choice(emoteadd)
+                await post.add_reaction(postemote)
                 
             elif "13 - TOK (Global)" in reaction.message.content:
                 postchannel = client.get_channel(811759533168263187)
-                await postchannel.send(reaction.message.content)
+                post = await postchannel.send(reaction.message.content)
+                postemote = random.choice(emoteadd)
+                await post.add_reaction(postemote)
                 
             elif "14 - EPIC (Global)" in reaction.message.content:
                 postchannel = client.get_channel(811759606250471434)
-                await postchannel.send(reaction.message.content)
+                post = await postchannel.send(reaction.message.content)
+                postemote = random.choice(emoteadd)
+                await post.add_reaction(postemote)
                 
             elif "15 - Psychology (Miller)" in reaction.message.content:
                 postchannel = client.get_channel(811759692648808534)
-                await postchannel.send(reaction.message.content)
-                
+                post = await postchannel.send(reaction.message.content)
+                postemote = random.choice(emoteadd)
+                await post.add_reaction(postemote)
+
 client.run('TOKEN')
