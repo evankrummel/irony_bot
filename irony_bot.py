@@ -9,6 +9,7 @@ intents.members = True
 session = []
 submitattach = []
 forwardattachments = []
+posts = []
 client = commands.Bot(command_prefix='!', intents=intents)
 
 #Personalization
@@ -16,13 +17,23 @@ embedcoloroptions = [0xffb5af, 0xa8c6fe, 0xb18cfe, 0xf4a4c0, 0x94e3fe, 0xb18cfe]
 emoteadd = ["<:obamba:808863191760764939>", "🥳", "👏", "<:what_a_flex:808864877367656468>", "<:city_kids_amiright:808836874805706862>", "<:sad_but_cool:808849380177870889>", "<:bruh:808835669387903006>", "<:logo2:832649772468797560>"]
 
 #Submit
-r2srand = [":partying_face: Cool!  What class is this for?  Please respond using the class number (1-15).", ":smiling_face_with_3_hearts: YOOOO thanks for contributing to the community!  What class do you want to submit to?  Please respond using the class number (1-15).", ":grin: Nice! What class is this for? Please respond using the class number (1-15).", ":cowboy: Woah, cool!  Thanks so much for contributing to the community! What class do you want to submit to?  Respond using the class number (1-15)."]
+r2srand = ["What class is this for?", "What class do you want to submit to?"]
+r2sexcl = [":partying_face: Cool!", ":smiling_face_with_3_hearts: YOOOO thanks for contributing to the community!", ":grin: Nice!", ":cowboy: Woah, cool!"]
+
 r3sp1rand = [":pencil2: Great, I'll post this assignment to ", ":star_struck: Sounds good, I'll post this submission to ", ":cowboy: Got it, I'll post this to ", ":smile_cat: Got it! I'll put post this to "]
 r3sp2rand = ["What is this assignment called?", "What's the title of this assignment?", "What's this submission called?", "What should I title the submission?"]
-r4soptions = [":mega: Ok, got it.  Would you like your handle attached to the submission?", ":cowboy: Now that's a groovy title!  Do you want your handle attached to the submission?", ":sunglasses: Cool, do you want your handle attached to the submission?"]
-r5soptions = [":notepad_spiral: Okay, do you want to attach any sort of note to the assignment? If yes, simply reply with your note.  Otherwise, just say `no`.", ":pencil2: Sounds good.  Do you want to include any sort of note with your submission?  If yes, simply reply with your note.  Otherwise, just say `no`.", ":memo: Got it.  Do you want any sort of note included with your submission? If yes, simply reply with your note.  Otherwise, just say `no`.", ":cowboy: Got it.  Do you want to include any sort of note with your submission? If you do, simply reply with your note.  Otherwise, just say `no`."]
-r6s = ":camera_with_flash: Nice.  You can now send photos of the assignment.  When you're done sending them, say `done` (Max. 5 Attachments, Don't include comments)."
+
+r4soptions2 = ["Would you like your handle attached to the submission?", "Do you want your handle attached to the submission?", "Do you want your handle attached to the submission?"]
+r4soptions1 = [":mega: Ok, got it.", ":cowboy: Now that's a groovy title!", ":sunglasses: Cool!"]
+
+r5soptions1 = [":notepad_spiral: Okay!", ":pencil2: Sounds good.", ":memo: Got it.", ":cowboy: Got it!"]
+r5soptions2 = ["Do you want to attach any sort of note to the assignment? If yes, simply reply with your note.  Otherwise, just say `no`.", "Do you want to include any sort of note with your submission?  If yes, simply reply with your note.  Otherwise, just say `no`.", "Do you want any sort of note included with your submission? If yes, simply reply with your note.  Otherwise, just say `no`.", "Do you want to include any sort of note with your submission? If you do, simply reply with your note.  Otherwise, just say `no`."]
+
+r6s1 = ":camera_with_flash: Nice."
+r6s2 = "You can now send photos of the assignment.  When you're done sending them, say `done` *(Max. 5 Attachments, Don't include comments)*"
+
 r7s = ":tada: I'll have a moderator post this on #assignments as soon as possible.  Thanks again for your submission!"
+
 r8s = ":+1: Here's what your submission looks like.  Is everything correct?"
 
 #Join/Leave Class
@@ -61,7 +72,9 @@ r2hd1l7 = "Respond with the exact words above, excluding the emote.  Saying anyt
 r2hd1 = f"{r2hd1l1} \n {r2hd1l2} \n \n {r2hd1l3} \n {r2hd1l4} \n {r2hd1l5} \n {r2hd1l6} \n {r2hd1l7}"
 
 #Error
-to1options = [":sob: This conversation has timed out due to inactivity.  Saying anything will start you back at the main menu.", ":cry: Oh no!  This conversation has timed out due to inactivity.  Saying anything will trigger the main menu.", ":fearful: Agh!  Sorry, but the session has timed out.  Saying anything will send you back to the main menu.", ":cold_face: Welp, the conversation has timed out.  Saying anything will send you back to the main menu."]
+to1options = ["Saying anything will start you back at the main menu.", "Saying anything will trigger the main menu.", "Saying anything will send you back to the main menu."]
+to1excl = [":sob: This conversation has timed out due to inactivity.", ":cry: Oh no!  This conversation has timed out due to inactivity.", ":fearful: Agh!  Sorry, but the session has timed out.", ":cold_face: Welp, the conversation has timed out."]
+
 e1 = ":face_with_raised_eyebrow: Sorry, I'm not sure I understand what you mean.  Could you try again in different words?"
 e2 = ":woman_detective: If you're having trouble with the bot, feel free to reach out to a moderator personally with your issue."
 ol3 = ":smiling_face_with_tear: Sorry, the bot can only accept up to 5 images at this time.  Please try again."
@@ -86,7 +99,6 @@ async def on_ready():
 async def on_message(message):
     botforwards = client.get_channel(813872172799754250)
     if message.author.id != client.user.id:
-        to1 = random.choice(to1options)
         allforwardchannel = client.get_channel(822973502965284874)
         if message.guild is None:
             allforwardembed=discord.Embed(title=f"New Bot Interaction", description=f"<@811988881713004604>", color=0x74a7fe)
@@ -119,8 +131,15 @@ async def on_message(message):
         else:
             if message.guild is None:
                 if message.author not in session:
+                
 #Main Menu
+
                     embedcolor = random.choice(embedcoloroptions)
+                    
+                    to2 = random.choice(to1options)
+                    to1 = random.choice(to1excl)
+                    timeoutuserembed = discord.Embed(title=to1, description=to2, color=embedcolor)
+                    
                     mainembed = discord.Embed(title="Hey! I'm a bot that can help you with anything related to Ironic.", description=f"You can respond with a similar word, or the according emote.", color=embedcolor)
                     mainembed.set_author(name=f"{client.user.name}", icon_url=f"{client.user.avatar_url}")
                     mainembed.add_field(name=":mailbox: Submit an Assignment", value=f"If you have an assignment to submit, you can do that here.", inline=False)
@@ -139,7 +158,7 @@ async def on_message(message):
                         reply1 = await client.wait_for("message", timeout=60.0, check=check)
                     
                     except asyncio.TimeoutError:
-                        await message.channel.send(to1)
+                        await message.channel.send(embed=timeoutuserembed)
                         embedcolor = random.choice(embedcoloroptions)
                         timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                         timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -149,8 +168,10 @@ async def on_message(message):
 #Submission Line 1
                     else:
                         if "sub" in reply1.content.lower() or "📫" in reply1.content.lower() or "📪" in reply1.content.lower() or "📬" in reply1.content.lower() or "📭" in reply1.content.lower() or "\U0001f4ec" in reply1.content.lower() or "\U0001f4ea" in reply1.content.lower():
-                            randclassname = random.choice(r2srand)
-                            await reply1.author.send(randclassname)
+                            randclassname2 = random.choice(r2srand)
+                            randclassname1 = random.choice(r2sexcl)
+                            classnumembed = discord.Embed(title=randclassname1, description=randclassname2, color=embedcolor)
+                            await reply1.author.send(embed=classnumembed)
                             
                             def check(m):
                                 return client.user.id != m.author.id and m.guild is None and m.author == reply1.author
@@ -159,7 +180,7 @@ async def on_message(message):
                                 reply2 = await client.wait_for("message", timeout=60.0, check=check)
                                 
                             except asyncio.TimeoutError:
-                                await message.channel.send(to1)
+                                await message.channel.send(embed=timeoutuserembed)
                                 embedcolor = random.choice(embedcoloroptions)
                                 timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                 timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -219,7 +240,10 @@ async def on_message(message):
                                         classnumber = f"Null Class - Author: {reply2.author}"
                                     randr3sp1 = random.choice(r3sp1rand)
                                     randr3sp2 = random.choice(r3sp2rand)
-                                    await reply2.author.send(f"{randr3sp1}`{classnumber}`.  {randr3sp2}")
+                                    classnumembed = discord.Embed(title=f"{randr3sp1} `{classnumber}`", description=randr3sp2, color=embedcolor)
+                                    
+
+                                    await reply2.author.send(embed=classnumembed)
                                     
                                     def check(m):
                                         return client.user.id != m.author.id and m.guild is None and m.author == reply2.author
@@ -228,7 +252,7 @@ async def on_message(message):
                                         reply3 = await client.wait_for("message", timeout=60.0, check=check)
                                         
                                     except asyncio.TimeoutError:
-                                        await message.channel.send(to1)
+                                        await message.channel.send(embed=timeoutuserembed)
                                         embedcolor = random.choice(embedcoloroptions)
                                         timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                         timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -237,8 +261,10 @@ async def on_message(message):
                                         session.remove(message.author)
 #Submission Line 3 (Include Tag)
                                     else:
-                                        r4srand = random.choice(r4soptions)
-                                        await reply3.author.send(r4srand)
+                                        r4srand1 = random.choice(r4soptions1)
+                                        r4srand2 = random.choice(r4soptions2)
+                                        r4sembed = discord.Embed(title=r4srand1, description=r4srand2, color=embedcolor)
+                                        await reply3.author.send(embed=r4sembed)
                                         
                                         def check(m):
                                             return client.user.id != m.author.id and m.guild is None and m.author == reply3.author
@@ -247,7 +273,7 @@ async def on_message(message):
                                             reply4 = await client.wait_for("message", timeout=60.0, check=check)
 
                                         except asyncio.TimeoutError:
-                                            await message.channel.send(to1)
+                                            await message.channel.send(embed=timeoutuserembed)
                                             embedcolor = random.choice(embedcoloroptions)
                                             timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                             timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -256,8 +282,10 @@ async def on_message(message):
                                             session.remove(message.author)
 #Submission Line 4 (Note)
                                         else:
-                                            r5srand = random.choice(r5soptions)
-                                            await reply4.author.send(r5srand)
+                                            r5srand1 = random.choice(r5soptions1)
+                                            r5srand2 = random.choice(r5soptions2)
+                                            r5sembed = discord.Embed(title=r5srand1, description=r5srand2, color=embedcolor)
+                                            await reply4.author.send(embed=r5sembed)
                                             
                                             def check(m):
                                                 return client.user.id != m.author.id and m.guild is None and m.author == reply4.author
@@ -266,7 +294,7 @@ async def on_message(message):
                                                 reply5 = await client.wait_for("message", timeout=60.0, check=check)
                                                 
                                             except asyncio.TimeoutError:
-                                                await message.channel.send(to1)
+                                                await message.channel.send(embed=timeoutuserembed)
                                                 embedcolor = random.choice(embedcoloroptions)
                                                 timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                 timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -275,7 +303,8 @@ async def on_message(message):
                                                 session.remove(message.author)
 #Attachments
                                             else:
-                                                await reply5.author.send(r6s)
+                                                r6sembed = discord.Embed(title=r6s1, description=r6s2, color=embedcolor)
+                                                await reply5.author.send(embed=r6sembed)
 
                                                 def check(m):
                                                     return client.user.id != m.author.id and m.guild is None and m.author == reply5.author
@@ -284,7 +313,7 @@ async def on_message(message):
                                                     reply6 = await client.wait_for("message", timeout=60.0, check=check)
                                                     
                                                 except asyncio.TimeoutError:
-                                                    await message.channel.send(to1)
+                                                    await message.channel.send(embed=timeoutuserembed)
                                                     embedcolor = random.choice(embedcoloroptions)
                                                     timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                     timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -302,7 +331,7 @@ async def on_message(message):
                                                         reply7 = await client.wait_for("message", timeout=60.0, check=check)
                                                         
                                                     except asyncio.TimeoutError:
-                                                        await message.channel.send(to1)
+                                                        await message.channel.send(embed=timeoutuserembed)
                                                         embedcolor = random.choice(embedcoloroptions)
                                                         timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                         timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -335,7 +364,7 @@ async def on_message(message):
                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                         
                                                                     except asyncio.TimeoutError:
-                                                                        await message.channel.send(to1)
+                                                                        await message.channel.send(embed=timeoutuserembed)
                                                                         embedcolor = random.choice(embedcoloroptions)
                                                                         timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                         timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -371,7 +400,7 @@ async def on_message(message):
                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                         
                                                                     except asyncio.TimeoutError:
-                                                                        await message.channel.send(to1)
+                                                                        await message.channel.send(embed=timeoutuserembed)
                                                                         embedcolor = random.choice(embedcoloroptions)
                                                                         timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                         timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -409,7 +438,7 @@ async def on_message(message):
                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                         
                                                                     except asyncio.TimeoutError:
-                                                                        await message.channel.send(to1)
+                                                                        await message.channel.send(embed=timeoutuserembed)
                                                                         embedcolor = random.choice(embedcoloroptions)
                                                                         timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                         timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -445,7 +474,7 @@ async def on_message(message):
                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                         
                                                                     except asyncio.TimeoutError:
-                                                                        await message.channel.send(to1)
+                                                                        await message.channel.send(embed=timeoutuserembed)
                                                                         embedcolor = random.choice(embedcoloroptions)
                                                                         timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                         timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -472,7 +501,7 @@ async def on_message(message):
                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                 
                                                             except asyncio.TimeoutError:
-                                                                await message.channel.send(to1)
+                                                                await message.channel.send(embed=timeoutuserembed)
                                                                 embedcolor = random.choice(embedcoloroptions)
                                                                 timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                 timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -505,7 +534,7 @@ async def on_message(message):
                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                 
                                                                             except asyncio.TimeoutError:
-                                                                                await message.channel.send(to1)
+                                                                                await message.channel.send(embed=timeoutuserembed)
                                                                                 embedcolor = random.choice(embedcoloroptions)
                                                                                 timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                 timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -541,7 +570,7 @@ async def on_message(message):
                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                 
                                                                             except asyncio.TimeoutError:
-                                                                                await message.channel.send(to1)
+                                                                                await message.channel.send(embed=timeoutuserembed)
                                                                                 embedcolor = random.choice(embedcoloroptions)
                                                                                 timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                 timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -579,7 +608,7 @@ async def on_message(message):
                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                 
                                                                             except asyncio.TimeoutError:
-                                                                                await message.channel.send(to1)
+                                                                                await message.channel.send(embed=timeoutuserembed)
                                                                                 embedcolor = random.choice(embedcoloroptions)
                                                                                 timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                 timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -615,7 +644,7 @@ async def on_message(message):
                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                 
                                                                             except asyncio.TimeoutError:
-                                                                                await message.channel.send(to1)
+                                                                                await message.channel.send(embed=timeoutuserembed)
                                                                                 embedcolor = random.choice(embedcoloroptions)
                                                                                 timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                 timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -642,7 +671,7 @@ async def on_message(message):
                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                         
                                                                     except asyncio.TimeoutError:
-                                                                        await message.channel.send(to1)
+                                                                        await message.channel.send(embed=timeoutuserembed)
                                                                         embedcolor = random.choice(embedcoloroptions)
                                                                         timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                         timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -674,7 +703,7 @@ async def on_message(message):
                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                         
                                                                                     except asyncio.TimeoutError:
-                                                                                        await message.channel.send(to1)
+                                                                                        await message.channel.send(embed=timeoutuserembed)
                                                                                         embedcolor = random.choice(embedcoloroptions)
                                                                                         timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                         timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -710,7 +739,7 @@ async def on_message(message):
                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                         
                                                                                     except asyncio.TimeoutError:
-                                                                                        await message.channel.send(to1)
+                                                                                        await message.channel.send(embed=timeoutuserembed)
                                                                                         embedcolor = random.choice(embedcoloroptions)
                                                                                         timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                         timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -748,7 +777,7 @@ async def on_message(message):
                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                         
                                                                                     except asyncio.TimeoutError:
-                                                                                        await message.channel.send(to1)
+                                                                                        await message.channel.send(embed=timeoutuserembed)
                                                                                         embedcolor = random.choice(embedcoloroptions)
                                                                                         timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                         timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -784,7 +813,7 @@ async def on_message(message):
                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                         
                                                                                     except asyncio.TimeoutError:
-                                                                                        await message.channel.send(to1)
+                                                                                        await message.channel.send(embed=timeoutuserembed)
                                                                                         embedcolor = random.choice(embedcoloroptions)
                                                                                         timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                         timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -811,7 +840,7 @@ async def on_message(message):
                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                 
                                                                             except asyncio.TimeoutError:
-                                                                                await message.channel.send(to1)
+                                                                                await message.channel.send(embed=timeoutuserembed)
                                                                                 embedcolor = random.choice(embedcoloroptions)
                                                                                 timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                 timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -843,7 +872,7 @@ async def on_message(message):
                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                                 
                                                                                             except asyncio.TimeoutError:
-                                                                                                await message.channel.send(to1)
+                                                                                                await message.channel.send(embed=timeoutuserembed)
                                                                                                 embedcolor = random.choice(embedcoloroptions)
                                                                                                 timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                                 timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -879,7 +908,7 @@ async def on_message(message):
                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
 
                                                                                             except asyncio.TimeoutError:
-                                                                                                await message.channel.send(to1)
+                                                                                                await message.channel.send(embed=timeoutuserembed)
                                                                                                 embedcolor = random.choice(embedcoloroptions)
                                                                                                 timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                                 timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -917,7 +946,7 @@ async def on_message(message):
                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                                 
                                                                                             except asyncio.TimeoutError:
-                                                                                                await message.channel.send(to1)
+                                                                                                await message.channel.send(embed=timeoutuserembed)
                                                                                                 embedcolor = random.choice(embedcoloroptions)
                                                                                                 timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                                 timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -953,7 +982,7 @@ async def on_message(message):
                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
 
                                                                                             except asyncio.TimeoutError:
-                                                                                                await message.channel.send(to1)
+                                                                                                await message.channel.send(embed=timeoutuserembed)
                                                                                                 embedcolor = random.choice(embedcoloroptions)
                                                                                                 timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                                 timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -980,7 +1009,7 @@ async def on_message(message):
                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                         
                                                                                     except asyncio.TimeoutError:
-                                                                                        await message.channel.send(to1)
+                                                                                        await message.channel.send(embed=timeoutuserembed)
                                                                                         embedcolor = random.choice(embedcoloroptions)
                                                                                         timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                         timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -1012,7 +1041,7 @@ async def on_message(message):
                                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                                         
                                                                                                     except asyncio.TimeoutError:
-                                                                                                        await message.channel.send(to1)
+                                                                                                        await message.channel.send(embed=timeoutuserembed)
                                                                                                         embedcolor = random.choice(embedcoloroptions)
                                                                                                         timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                                         timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -1048,7 +1077,7 @@ async def on_message(message):
                                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
 
                                                                                                     except asyncio.TimeoutError:
-                                                                                                        await message.channel.send(to1)
+                                                                                                        await message.channel.send(embed=timeoutuserembed)
                                                                                                         embedcolor = random.choice(embedcoloroptions)
                                                                                                         timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                                         timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -1086,7 +1115,7 @@ async def on_message(message):
                                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                                         
                                                                                                     except asyncio.TimeoutError:
-                                                                                                        await message.channel.send(to1)
+                                                                                                        await message.channel.send(embed=timeoutuserembed)
                                                                                                         embedcolor = random.choice(embedcoloroptions)
                                                                                                         timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                                         timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -1122,7 +1151,7 @@ async def on_message(message):
                                                                                                         reply8 = await client.wait_for("message", timeout=60.0, check=check)
 
                                                                                                     except asyncio.TimeoutError:
-                                                                                                        await message.channel.send(to1)
+                                                                                                        await message.channel.send(embed=timeoutuserembed)
                                                                                                         embedcolor = random.choice(embedcoloroptions)
                                                                                                         timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                                         timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -1149,7 +1178,7 @@ async def on_message(message):
                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                                 
                                                                                             except asyncio.TimeoutError:
-                                                                                                await message.channel.send(to1)
+                                                                                                await message.channel.send(embed=timeoutuserembed)
                                                                                                 embedcolor = random.choice(embedcoloroptions)
                                                                                                 timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                                 timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -1181,7 +1210,7 @@ async def on_message(message):
                                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                                                 
                                                                                                             except asyncio.TimeoutError:
-                                                                                                                await message.channel.send(to1)
+                                                                                                                await message.channel.send(embed=timeoutuserembed)
                                                                                                                 embedcolor = random.choice(embedcoloroptions)
                                                                                                                 timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                                                 timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -1217,7 +1246,7 @@ async def on_message(message):
                                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
 
                                                                                                             except asyncio.TimeoutError:
-                                                                                                                await message.channel.send(to1)
+                                                                                                                await message.channel.send(embed=timeoutuserembed)
                                                                                                                 embedcolor = random.choice(embedcoloroptions)
                                                                                                                 timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                                                 timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -1255,7 +1284,7 @@ async def on_message(message):
                                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
                                                                                                                 
                                                                                                             except asyncio.TimeoutError:
-                                                                                                                await message.channel.send(to1)
+                                                                                                                await message.channel.send(embed=timeoutuserembed)
                                                                                                                 embedcolor = random.choice(embedcoloroptions)
                                                                                                                 timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                                                 timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -1291,7 +1320,7 @@ async def on_message(message):
                                                                                                                 reply8 = await client.wait_for("message", timeout=60.0, check=check)
 
                                                                                                             except asyncio.TimeoutError:
-                                                                                                                await message.channel.send(to1)
+                                                                                                                await message.channel.send(embed=timeoutuserembed)
                                                                                                                 embedcolor = random.choice(embedcoloroptions)
                                                                                                                 timeoutembed=discord.Embed(title="Bot Interaction Timed Out", description=f"<@811988881713004604>", color=embedcolor)
                                                                                                                 timeoutembed.set_author(name=f"{message.author.name}", icon_url=f"{message.author.avatar_url}")
@@ -1362,95 +1391,110 @@ async def on_message(message):
 async def on_reaction_add(reaction, user):
     if user != client.user:
         if reaction.message.channel == client.get_channel(813872172799754250):
-        
-            if "1 - DP Visual Arts (Whittle)" in reaction.message.content:
-                postchannel = client.get_channel(806269397824045106)
-                post = await postchannel.send(reaction.message.content)
-                postemote = random.choice(emoteadd)
-                await post.add_reaction(postemote)
-                
-            elif "2 - DP History (VanGoor)" in reaction.message.content:
-                postchannel = client.get_channel(806269920466829402)
-                post = await postchannel.send(reaction.message.content)
-                postemote = random.choice(emoteadd)
-                await post.add_reaction(postemote)
-                
-            elif "3 - Spanish (Castillo)" in reaction.message.content:
-                postchannel = client.get_channel(806270412068749352)
-                post = await postchannel.send(reaction.message.content)
-                postemote = random.choice(emoteadd)
-                await post.add_reaction(postemote)
-                
-            elif "4 - AA DP Mathematics (Vecziedins)" in reaction.message.content:
-                postchannel = client.get_channel(806270676448706596)
-                post = await postchannel.send(reaction.message.content)
-                postemote = random.choice(emoteadd)
-                await post.add_reaction(postemote)
-                
-            elif "5 - DP Biology (Thane)" in reaction.message.content:
-                postchannel = client.get_channel(806273544723497010)
-                post = await postchannel.send(reaction.message.content)
-                postemote = random.choice(emoteadd)
-                await post.add_reaction(postemote)
-                
-            elif "6 - DP English (Donohue)" in reaction.message.content:
-                postchannel = client.get_channel(806274132735164457)
-                post = await postchannel.send(reaction.message.content)
-                postemote = random.choice(emoteadd)
-                await post.add_reaction(postemote)
-                
-            elif "7 - DP Chemistry (Vogl)" in reaction.message.content:
-                postchannel = client.get_channel(806274604976963595)
-                post = await postchannel.send(reaction.message.content)
-                postemote = random.choice(emoteadd)
-                await post.add_reaction(postemote)
-                
-            elif "8 - Chinese V (Beckwith)" in reaction.message.content:
-                postchannel = client.get_channel(806308137807642624)
-                post = await postchannel.send(reaction.message.content)
-                postemote = random.choice(emoteadd)
-                await post.add_reaction(postemote)
-                
-            elif "9 - AI DP Mathematics (Burke)" in reaction.message.content:
-                postchannel = client.get_channel(806309826752675881)
-                post = await postchannel.send(reaction.message.content)
-                postemote = random.choice(emoteadd)
-                await post.add_reaction(postemote)
-                
-            elif "10 - DP ESS (Rizley)" in reaction.message.content:
-                postchannel = client.get_channel(806540736148406282)
-                post = await postchannel.send(reaction.message.content)
-                postemote = random.choice(emoteadd)
-                await post.add_reaction(postemote)
-                
-            elif "11 - DP History (Stachura)" in reaction.message.content:
-                postchannel = client.get_channel(806565035404427345)
-                post = await postchannel.send(reaction.message.content)
-                postemote = random.choice(emoteadd)
-                await post.add_reaction(postemote)
-                
-            elif "12 - Music Theory (Jeroudi)" in reaction.message.content:
-                postchannel = client.get_channel(806564949782167602)
-                post = await postchannel.send(reaction.message.content)
-                postemote = random.choice(emoteadd)
-                await post.add_reaction(postemote)
-                
-            elif "13 - TOK (Global)" in reaction.message.content:
-                postchannel = client.get_channel(811759533168263187)
-                post = await postchannel.send(reaction.message.content)
-                postemote = random.choice(emoteadd)
-                await post.add_reaction(postemote)
-                
-            elif "14 - EPIC (Global)" in reaction.message.content:
-                postchannel = client.get_channel(811759606250471434)
-                post = await postchannel.send(reaction.message.content)
-                postemote = random.choice(emoteadd)
-                await post.add_reaction(postemote)
-                
-            elif "15 - Psychology (Miller)" in reaction.message.content:
-                postchannel = client.get_channel(811759692648808534)
-                post = await postchannel.send(reaction.message.content)
-                postemote = random.choice(emoteadd)
-                await post.add_reaction(postemote)
+            if reaction.message.id not in posts:
+                if "1 - DP Visual Arts (Whittle)" in reaction.message.content:
+                    postchannel = client.get_channel(806269397824045106)
+                    post = await postchannel.send(reaction.message.content)
+                    postemote = random.choice(emoteadd)
+                    await post.add_reaction(postemote)
+                    posts.append(reaction.message.id)
+                    
+                elif "2 - DP History (VanGoor)" in reaction.message.content:
+                    postchannel = client.get_channel(806269920466829402)
+                    post = await postchannel.send(reaction.message.content)
+                    postemote = random.choice(emoteadd)
+                    await post.add_reaction(postemote)
+                    posts.append(reaction.message.id)
+                    
+                elif "3 - Spanish (Castillo)" in reaction.message.content:
+                    postchannel = client.get_channel(806270412068749352)
+                    post = await postchannel.send(reaction.message.content)
+                    postemote = random.choice(emoteadd)
+                    await post.add_reaction(postemote)
+                    posts.append(reaction.message.id)
+                    
+                elif "4 - AA DP Mathematics (Vecziedins)" in reaction.message.content:
+                    postchannel = client.get_channel(806270676448706596)
+                    post = await postchannel.send(reaction.message.content)
+                    postemote = random.choice(emoteadd)
+                    await post.add_reaction(postemote)
+                    posts.append(reaction.message.id)
+                    
+                elif "5 - DP Biology (Thane)" in reaction.message.content:
+                    postchannel = client.get_channel(806273544723497010)
+                    post = await postchannel.send(reaction.message.content)
+                    postemote = random.choice(emoteadd)
+                    await post.add_reaction(postemote)
+                    posts.append(reaction.message.id)
+                    
+                elif "6 - DP English (Donohue)" in reaction.message.content:
+                    postchannel = client.get_channel(806274132735164457)
+                    post = await postchannel.send(reaction.message.content)
+                    postemote = random.choice(emoteadd)
+                    await post.add_reaction(postemote)
+                    posts.append(reaction.message.id)
+                    
+                elif "7 - DP Chemistry (Vogl)" in reaction.message.content:
+                    postchannel = client.get_channel(806274604976963595)
+                    post = await postchannel.send(reaction.message.content)
+                    postemote = random.choice(emoteadd)
+                    await post.add_reaction(postemote)
+                    posts.append(reaction.message.id)
+                    
+                elif "8 - Chinese V (Beckwith)" in reaction.message.content:
+                    postchannel = client.get_channel(806308137807642624)
+                    post = await postchannel.send(reaction.message.content)
+                    postemote = random.choice(emoteadd)
+                    await post.add_reaction(postemote)
+                    posts.append(reaction.message.id)
+                    
+                elif "9 - AI DP Mathematics (Burke)" in reaction.message.content:
+                    postchannel = client.get_channel(806309826752675881)
+                    post = await postchannel.send(reaction.message.content)
+                    postemote = random.choice(emoteadd)
+                    await post.add_reaction(postemote)
+                    posts.append(reaction.message.id)
+                    
+                elif "10 - DP ESS (Rizley)" in reaction.message.content:
+                    postchannel = client.get_channel(806540736148406282)
+                    post = await postchannel.send(reaction.message.content)
+                    postemote = random.choice(emoteadd)
+                    await post.add_reaction(postemote)
+                    posts.append(reaction.message.id)
+                    
+                elif "11 - DP History (Stachura)" in reaction.message.content:
+                    postchannel = client.get_channel(806565035404427345)
+                    post = await postchannel.send(reaction.message.content)
+                    postemote = random.choice(emoteadd)
+                    await post.add_reaction(postemote)
+                    posts.append(reaction.message.id)
+                    
+                elif "12 - Music Theory (Jeroudi)" in reaction.message.content:
+                    postchannel = client.get_channel(806564949782167602)
+                    post = await postchannel.send(reaction.message.content)
+                    postemote = random.choice(emoteadd)
+                    await post.add_reaction(postemote)
+                    posts.append(reaction.message.id)
+                    
+                elif "13 - TOK (Global)" in reaction.message.content:
+                    postchannel = client.get_channel(811759533168263187)
+                    post = await postchannel.send(reaction.message.content)
+                    postemote = random.choice(emoteadd)
+                    await post.add_reaction(postemote)
+                    posts.append(reaction.message.id)
+                    
+                elif "14 - EPIC (Global)" in reaction.message.content:
+                    postchannel = client.get_channel(811759606250471434)
+                    post = await postchannel.send(reaction.message.content)
+                    postemote = random.choice(emoteadd)
+                    await post.add_reaction(postemote)
+                    posts.append(reaction.message.id)
+                    
+                elif "15 - Psychology (Miller)" in reaction.message.content:
+                    postchannel = client.get_channel(811759692648808534)
+                    post = await postchannel.send(reaction.message.content)
+                    postemote = random.choice(emoteadd)
+                    await post.add_reaction(postemote)
+                    posts.append(reaction.message.id)
 
 client.run('TOKEN')
